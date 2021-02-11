@@ -1,5 +1,94 @@
 {
   "curriculum": "Currículo",
   "predictions": "Previsões",
-  "rankings": "Rankings"
+  "rankings": "Rankings",
+  "summary": "Summary",
+  "summaryText": "Texto sumário",
+  "phone": "Telefone",
+  "email": "Email",
+  "technicalSkill": "Habilidades Técnicas",
+  "technicalSkills": [
+    "Python",
+    "R",
+    "SQL",
+    "VBA",
+    "Excel",
+    "PowerPoint",
+    "Java",
+    "HTML",
+    "XML",
+    "JavaScript",
+    "CSS",
+    "Swift"
+  ],
+  "languages": "Idiomas",
+  "english": "Inglês",
+  "portuguese": "Português",
+  "education": "Educação",
+  "educations": [
+    {
+      "course": "Desenvolvimento e Estratégia de Aplicativos Mobile",
+      "date": "09/2020 - Presente",
+      "school": "George Brown College | Toronto, ON, Canadá"
+    },
+    {
+      "course": "Análise de Dados e Data Mining",
+      "date": "03/2018 - 10/2019",
+      "school": "Fundação Instituto de Administração | Sao Paulo, SP, Brasil"
+    },
+    {
+      "course": "Ciências Contábeis",
+      "date": "01/2014 - 10/2017",
+      "school": "Universidade de Sao Paulo | Sao Paulo, SP, Brasil"
+    }
+  ],
+  "certificate": "Certificados",
+  "certificates": [
+    {
+      "course": "Cientista de Dados em Data Quest",
+      "date": "12/2020",
+      "description": "Programação em Python, Análise e Visualização de Dados, Linha de Comando, SQL, Probabilidade/Estatística e Aprendizado de Máquina"
+    },
+    {
+      "course": "University Pathway Program at ILAC",
+      "date": "04/2020",
+      "description": "Certificado de proficiência em inglês"
+    },
+    {
+      "course": "Analytics at Vanzolini",
+      "date": "04/2019",
+      "description": " Análise Exploratória de Dados, MS Access, Excel Dashboards, Introdução ao Hadoop e Hive QL"
+    }
+  ],
+  "professionalExperience": "Experiência Profissional",
+  "professionalExperiences": [
+    {
+      "job": "Analista de Dados",
+      "date": "08/2016 – 01/2020",
+      "company": "Itau Unibanco | Sao Paulo, SP, Brasil",
+      "description": [
+        "Desenvolvimento de modelos para precificar ações cíveis dependendo de seu perfil",
+        "Monitoramento de indicadores e planos de ação",
+        "Desenvolvimento de modelos para previsão de transações e do fluxo de clientes por agência e por dia",
+        "Desenvolvimento de modelos para monitoramento das agências"
+      ]
+    },
+    {
+      "job": "Estagiário",
+      "date": "05/2015 – 07/2016",
+      "company": "Itau Unibanco | Sao Paulo, SP, Brasil",
+      "description": [
+        "Desenvolvimento de dashboards para monitoramento de indicadores",
+        "Resolução de reclamações dos clientes através da ferramenta oficial do banco"
+      ]
+    }
+  ],
+  "award": "Awards",
+  "awards": [
+    {
+      "award": "PRAD (Programa de Remuneração por Alto Desempenho) ",
+      "date": "03/2018",
+      "description": "Entregue a 10% dos analistas do banco pela performance em 2017"
+    }
+  ]
 }

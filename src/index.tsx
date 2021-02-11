@@ -4,20 +4,18 @@ import App from "./App";
 import "./i18n/config";
 import "antd/dist/antd.less";
 
-import { Header } from "@components";
-import { Layout, Typography } from "antd";
+import { Header, Footer } from "@components";
+import { Layout } from "antd";
 
-const { Footer, Content } = Layout;
+const { Content } = Layout;
 ReactDOM.render(
   <React.StrictMode>
-    <Layout style={{ height: "100vh" }}>
-      <Layout>
-        <Header />
-        <Content>
-          <App />
-        </Content>
-        <Footer />
-      </Layout>
+    <Layout style={{ height: "100%" }}>
+      <Header />
+      <Content style={{ padding: "50px" }}>
+        <App />
+      </Content>
+      <Footer />
     </Layout>
   </React.StrictMode>,
   document.getElementById("root")
