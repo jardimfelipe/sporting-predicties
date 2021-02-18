@@ -7,6 +7,8 @@ import {
   LineChartOutlined,
   BarChartOutlined,
 } from "@ant-design/icons";
+
+import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const { Header: AntdHeader } = Layout;
@@ -38,11 +40,11 @@ const LanguageSelect = styled(Select)`
 `;
 
 export const Header = () => {
+  const history = useHistory();
   const { t, i18n } = useTranslation();
   const handleChange = (value: any) => {
     i18n.changeLanguage(value);
   };
-
   return (
     <AntdHeader
       style={{
@@ -51,14 +53,22 @@ export const Header = () => {
         alignItems: "center",
       }}
     >
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-        <Menu.Item key="1" icon={<IdcardOutlined />}>
+      <Menu theme="dark" mode="horizontal">
+        <Menu.Item
+          onClick={() => history.push("/")}
+          key="1"
+          icon={<IdcardOutlined />}
+        >
           {t("curriculum")}
         </Menu.Item>
         <Menu.Item key="2" icon={<LineChartOutlined />}>
           {t("predictions")}
         </Menu.Item>
-        <Menu.Item key="3" icon={<BarChartOutlined />}>
+        <Menu.Item
+          onClick={() => history.push("/rankings")}
+          key="3"
+          icon={<BarChartOutlined />}
+        >
           {t("rankings")}
         </Menu.Item>
       </Menu>

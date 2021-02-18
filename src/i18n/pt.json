@@ -90,5 +90,19 @@
       "date": "03/2018",
       "description": "Entregue a 10% dos analistas do banco pela performance em 2017"
     }
-  ]
+  ],
+  "ranking": {
+    "title": "Rankings no Futebol",
+    "subTitle": "Compare times pelo Soccer Power Index"
+  },
+  "table": {
+    "ranking": "Ranking",
+    "positionChange": "Position Change",
+    "teamName": "Nome do Time",
+    "image": "Imagem",
+    "attackParameter": "Attack Parameter",
+    "defenseParameter": "Defense Parameter",
+    "teamCountry": "País do Time",
+    "teamRating": "Team Rating"
+  }
 }

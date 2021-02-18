@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
-import { Home } from "@pages";
 
+import { RankingContext } from "./Context";
+
+import { Home, Ranking } from "@pages";
+import { Header, Footer } from "@components";
+import { Layout } from "antd";
+
+const { Content } = Layout;
 function App() {
+  const [ranking, setRanking] = useState({});
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={Home} />
-      </Switch>
-    </BrowserRouter>
+    <RankingContext.Provider value={{ ranking, setRanking }}>
+      <BrowserRouter>
+        <Header />
+        <Content style={{ padding: "50px" }}>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/rankings" component={Ranking} />
+          </Switch>
+        </Content>
+        <Footer />
+      </BrowserRouter>
+    </RankingContext.Provider>
   );
 }
 

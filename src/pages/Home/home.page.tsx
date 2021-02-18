@@ -109,10 +109,10 @@ export const Home = () => {
           </Col>
         </Row>
         <Divider>{t("professionalExperience")}</Divider>
-        {professionalExperiences.map((professionalExperience) => {
+        {professionalExperiences.map((professionalExperience, index) => {
           const { job, company, date, description } = professionalExperience;
           return (
-            <Row className="curriculum__section">
+            <Row key={`professional-${index}`} className="curriculum__section">
               <Col className="curriculum__header-block" span={12}>
                 <Text className="curriculum__header">{job}</Text>
                 <Text className="curriculum__subheader">{company}</Text>
@@ -127,8 +127,8 @@ export const Home = () => {
               </Col>
               <Col span={24}>
                 <ul className="curriculum__list">
-                  {description.map((desc: string) => (
-                    <li>{desc}</li>
+                  {description.map((desc: string, indexDesc) => (
+                    <li key={`desc-${indexDesc}`}>{desc}</li>
                   ))}
                 </ul>
               </Col>
@@ -136,10 +136,10 @@ export const Home = () => {
           );
         })}
         <Divider>{t("education")}</Divider>
-        {educations.map((education) => {
+        {educations.map((education, index) => {
           const { course, date, school } = education;
           return (
-            <Row className="curriculum__section">
+            <Row key={`education-${index}`} className="curriculum__section">
               <Col className="curriculum__header-block" span={12}>
                 <Text className="curriculum__header">{course}</Text>
                 <Text className="curriculum__subheader">{school}</Text>
@@ -156,10 +156,10 @@ export const Home = () => {
           );
         })}
         <Divider>{t("certificate")}</Divider>
-        {certificates.map((certificate) => {
+        {certificates.map((certificate, index) => {
           const { course, date, description } = certificate;
           return (
-            <Row className="curriculum__section">
+            <Row key={`certificate-${index}`} className="curriculum__section">
               <Col className="curriculum__header-block" span={12}>
                 <Text className="curriculum__header">{course}</Text>
                 <Text className="curriculum__subheader">{description}</Text>
@@ -176,10 +176,10 @@ export const Home = () => {
           );
         })}
         <Divider>{t("award")}</Divider>
-        {awards.map((aw) => {
+        {awards.map((aw, index) => {
           const { award, date, description } = aw;
           return (
-            <Row className="curriculum__section">
+            <Row key={`aw-${index}`} className="curriculum__section">
               <Col className="curriculum__header-block" span={12}>
                 <Text className="curriculum__header">{award}</Text>
                 <Text className="curriculum__subheader">{description}</Text>
