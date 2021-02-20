@@ -39,6 +39,27 @@ const LanguageSelect = styled(Select)`
   }
 `;
 
+const HeaderMenu = styled(Menu)`
+  box-sizing: border-box;
+  li {
+    box-sizing: border-box;
+    border-bottom: 5px solid transparent !important;
+    span {
+      position: relative;
+      top: 5px;
+    }
+    &:hover {
+      box-sizing: border-box;
+      background-color: transparent !important;
+      border-bottom: 5px solid #1da57a !important;
+    }
+    &.ant-menu-item-selected {
+      background-color: transparent !important;
+      border-bottom: 5px solid #1da57a !important;
+    }
+  }
+`;
+
 export const Header = () => {
   const history = useHistory();
   const { t, i18n } = useTranslation();
@@ -51,9 +72,10 @@ export const Header = () => {
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "center",
+        borderBottom: "5px solid",
       }}
     >
-      <Menu theme="dark" mode="horizontal">
+      <HeaderMenu theme="dark" mode="horizontal">
         <Menu.Item
           onClick={() => history.push("/")}
           key="1"
@@ -71,7 +93,7 @@ export const Header = () => {
         >
           {t("rankings")}
         </Menu.Item>
-      </Menu>
+      </HeaderMenu>
       <LanguageSelect defaultValue={"en"} onChange={handleChange}>
         <Option value="pt">
           <Image

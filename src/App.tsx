@@ -14,7 +14,8 @@ function App() {
     <RankingContext.Provider value={{ ranking, setRanking }}>
       <BrowserRouter>
         <Header />
-        <Content style={{ padding: "50px" }}>
+
+        <Content style={{ padding: "50px", minHeight: "calc(100vh - 184px)" }}>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/rankings" component={Ranking} />
