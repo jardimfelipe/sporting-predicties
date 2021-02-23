@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import { Typography, Row, Col, Image } from "antd";
+import { Typography, Row, Col, Image, Select } from "antd";
 import { Container, Table } from "@components";
 import { ColumnsType } from "antd/lib/table";
+import styled from "styled-components";
 
 import { useRanking, Ranking as IRanking } from "../../Context";
 import api from "@config/api";
@@ -10,7 +11,19 @@ import api from "@config/api";
 import { useTranslation } from "react-i18next";
 
 const { Title, Text } = Typography;
+const { Option } = Select;
 type RankingTypes = "internationalRanking" | "localRanking";
+
+const SelectWrapper = styled.div`
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  label {
+    display: block;
+  }
+`;
 
 export const Ranking = () => {
   const { ranking, setRanking } = useRanking();
@@ -35,7 +48,15 @@ export const Ranking = () => {
       align: "center",
       width: 30,
       className: "single-column vertical-border",
-      render: (value: string) => value || "",
+      render: (value: number) => (
+        <span
+          className={`position-change ${
+            value > 0 ? "gain" : value < 0 ? "loss" : ""
+          }`}
+        >
+          {(value > 0 && `+ ${value}`) || (value < 0 && `- ${value}`) || ""}
+        </span>
+      ),
     },
     {
       title: t("table.teamName"),
@@ -62,7 +83,7 @@ export const Ranking = () => {
       : []),
     {
       title: t("table.teamRating"),
-      className: "",
+      className: "header-cell",
       children: [
         {
           title: t("table.attackParameter"),
@@ -71,12 +92,12 @@ export const Ranking = () => {
           align: "center",
           width: 30,
           render: (value) => (
-            <span
+            <div
               style={{ backgroundColor: getColor(value, "att") }}
               className={`rating att--drop-6`}
             >
               {value.toFixed(1)}
-            </span>
+            </div>
           ),
         },
         {
@@ -86,17 +107,21 @@ export const Ranking = () => {
           align: "center",
           width: 30,
           render: (value) => (
-            <span
+            <div
               style={{ backgroundColor: getColor(value, "deff") }}
               className={`rating def--drop-6`}
             >
               {value.toFixed(1)}
-            </span>
+            </div>
           ),
         },
       ],
     },
   ];
+
+  const handleChange = (value: RankingTypes) => {
+    setCurrentRanking(value);
+  };
 
   const toCamel = (s: string) => {
     return s.replace(/([-_][a-z])/gi, ($1) => {
@@ -108,12 +133,12 @@ export const Ranking = () => {
     if (value <= 1) {
       return type === "att"
         ? `rgba(255,39,0,${1 - value})`
-        : `rgba(68, 171, 67, ${1 - value})`;
+        : `rgba(68, 171, 67, ${value - 0.5})`;
     }
     if (value === 0) return "";
     return type === "att"
       ? `rgba(68, 171, 67, ${value - 1})`
-      : `rgba(255,39,0,${1 - value})`;
+      : `rgba(255,39,0,${value - 1})`;
   };
 
   useEffect(() => {
@@ -162,7 +187,20 @@ export const Ranking = () => {
       <Row>
         <Col span={24} style={{ textAlign: "center" }}>
           <Title>{t("ranking.title")}</Title>
-          <Text>{t("ranking.subTitle")}</Text>
+          <Text type="secondary">{t("ranking.subTitle")}</Text>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
+          <SelectWrapper>
+            <label>Selectione o ranking:</label>
+            <Select onChange={handleChange} defaultValue={currentRanking}>
+              <Option value="localRanking">{t("ranking.localRanking")}</Option>
+              <Option value="internationalRanking">
+                {t("ranking.internationalRanking")}
+              </Option>
+            </Select>
+          </SelectWrapper>
         </Col>
       </Row>
       <Row>
@@ -171,6 +209,7 @@ export const Ranking = () => {
             loading={isLoading}
             columns={columns}
             dataSource={ranking[currentRanking] || []}
+            pagination={{ defaultPageSize: 50 }}
           />
         </Col>
       </Row>

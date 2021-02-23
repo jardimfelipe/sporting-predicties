@@ -93,7 +93,9 @@
   ],
   "ranking": {
     "title": "Rankings no Futebol",
-    "subTitle": "Compare times pelo Soccer Power Index"
+    "subTitle": "Compare times pelo Soccer Power Index",
+    "localRanking": "Ranking Local",
+    "internationalRanking": "Ranking Internacional"
   },
   "table": {
     "ranking": "Ranking",

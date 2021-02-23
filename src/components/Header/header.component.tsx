@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { Layout, Image, Select, Menu } from "antd";
@@ -59,13 +59,44 @@ const HeaderMenu = styled(Menu)`
     }
   }
 `;
+const menuItems = [
+  {
+    title: "curriculum",
+    path: "/",
+    icon: <IdcardOutlined />,
+  },
+  {
+    title: "predictions",
+    path: "/predictions",
+    icon: <LineChartOutlined />,
+  },
+  {
+    title: "rankings",
+    path: "/rankings",
+    icon: <BarChartOutlined />,
+  },
+];
 
 export const Header = () => {
   const history = useHistory();
   const { t, i18n } = useTranslation();
+  const [currentMenuItem, setCurrentMenuItem] = useState<string>("");
   const handleChange = (value: any) => {
     i18n.changeLanguage(value);
   };
+
+  const handleClick = (newPath: string) => {
+    const defaultMenu = menuItems.findIndex(({ path }) => path === newPath);
+    setCurrentMenuItem(defaultMenu.toString());
+    history.push(newPath);
+  };
+
+  useEffect(() => {
+    const defaultMenu = menuItems.findIndex(
+      ({ path }) => path === history.location.pathname
+    );
+    setCurrentMenuItem(defaultMenu.toString());
+  }, [history.location.pathname]);
   return (
     <AntdHeader
       style={{
@@ -75,24 +106,22 @@ export const Header = () => {
         borderBottom: "5px solid",
       }}
     >
-      <HeaderMenu theme="dark" mode="horizontal">
-        <Menu.Item
-          onClick={() => history.push("/")}
-          key="1"
-          icon={<IdcardOutlined />}
-        >
-          {t("curriculum")}
-        </Menu.Item>
-        <Menu.Item key="2" icon={<LineChartOutlined />}>
-          {t("predictions")}
-        </Menu.Item>
-        <Menu.Item
-          onClick={() => history.push("/rankings")}
-          key="3"
-          icon={<BarChartOutlined />}
-        >
-          {t("rankings")}
-        </Menu.Item>
+      <HeaderMenu
+        selectedKeys={[currentMenuItem]}
+        theme="dark"
+        mode="horizontal"
+      >
+        {menuItems.map((menu, index) => {
+          return (
+            <Menu.Item
+              onClick={() => handleClick(menu.path)}
+              key={index}
+              icon={menu.icon}
+            >
+              {t(menu.title)}
+            </Menu.Item>
+          );
+        })}
       </HeaderMenu>
       <LanguageSelect defaultValue={"en"} onChange={handleChange}>
         <Option value="pt">

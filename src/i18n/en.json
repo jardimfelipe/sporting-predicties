@@ -92,7 +92,9 @@
   ],
   "ranking": {
     "title": "Soccer Rankings",
-    "subTitle": "Compare teams by Soccer Power Index"
+    "subTitle": "Compare teams by Soccer Power Index",
+    "localRanking": "Local Ranking",
+    "internationalRanking": "International Ranking"
   },
   "table": {
     "ranking": "Ranking",
