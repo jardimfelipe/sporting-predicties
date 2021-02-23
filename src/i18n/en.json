@@ -89,5 +89,19 @@
       "date": "03/2018",
       "description": "Delivered to 10% of the analysts regarding the performance presented in 2017"
     }
-  ]
+  ],
+  "ranking": {
+    "title": "Soccer Rankings",
+    "subTitle": "Compare teams by Soccer Power Index"
+  },
+  "table": {
+    "ranking": "Ranking",
+    "positionChange": "Position Change",
+    "teamName": "Team Name",
+    "image": "Image",
+    "attackParameter": "Attack Parameter",
+    "defenseParameter": "Defense Parameter",
+    "teamCountry": "Team Country",
+    "teamRating": "Team Rating"
+  }
 }

@@ -1,64 +1,28 @@
 {
-    "compilerOptions": {
-        "baseUrl": "./src",
-        "paths": {
-            "@src": [
-                "./"
-            ],
-            "@constants": [
-                "./constants"
-            ],
-            "@constants/*": [
-                "./constants/*"
-            ],
-            "@components": [
-                "./components"
-            ],
-            "@components/*": [
-                "./components/*"
-            ],
-            "@hooks": [
-                "./hooks"
-            ],
-            "@hooks/*": [
-                "./hooks/*"
-            ],
-            "@pages": [
-                "./pages"
-            ],
-            "@pages/*": [
-                "./pages/*"
-            ],
-            "@services": [
-                "./services"
-            ],
-            "@services/*": [
-                "./services/*"
-            ],
-            "@store": [
-                "./store"
-            ],
-            "@store/*": [
-                "./store/*"
-            ],
-            "@assets": [
-                "./assets"
-            ],
-            "@assets/": [
-                "./assets/"
-            ],
-            "@utils": [
-                "./utils"
-            ],
-            "@utils/": [
-                "./utils/*"
-            ],
-            "@local": [
-                "./local"
-            ],
-            "@local/": [
-                "./local/*"
-            ]
-        }
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@src": ["./"],
+      "@constants": ["./constants"],
+      "@constants/*": ["./constants/*"],
+      "@components": ["./components"],
+      "@components/*": ["./components/*"],
+      "@config": ["./config"],
+      "@config/*": ["./config/*"],
+      "@hooks": ["./hooks"],
+      "@hooks/*": ["./hooks/*"],
+      "@pages": ["./pages"],
+      "@pages/*": ["./pages/*"],
+      "@services": ["./services"],
+      "@services/*": ["./services/*"],
+      "@store": ["./store"],
+      "@store/*": ["./store/*"],
+      "@assets": ["./assets"],
+      "@assets/": ["./assets/"],
+      "@utils": ["./utils"],
+      "@utils/": ["./utils/*"],
+      "@local": ["./local"],
+      "@local/": ["./local/*"]
     }
+  }
 }
