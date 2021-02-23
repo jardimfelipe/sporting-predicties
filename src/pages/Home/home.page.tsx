@@ -93,18 +93,18 @@ export const Home = () => {
     <Container>
       <CurriculumContainer>
         <Row align="middle">
-          <Col span={12}>
-            <Col span={24}>
+          <Col xs={24} md={12}>
+            <Col md={24}>
               <Title className="authorName">Matheus Hanssen</Title>
             </Col>
-            <Col span={24} className="curriculum__icons">
-              <SocialButtons />
+            <Col md={24} className="curriculum__icons">
+              <SocialButtons curriculumButton />
               {/* <Button type="primary" shape="circle" icon={<SearchOutlined />} /> */}
             </Col>
           </Col>
         </Row>
         <Row align="middle">
-          <Col span={24}>
+          <Col md={24}>
             <Text>{t("summaryText")}</Text>
           </Col>
         </Row>
@@ -113,11 +113,11 @@ export const Home = () => {
           const { job, company, date, description } = professionalExperience;
           return (
             <Row key={`professional-${index}`} className="curriculum__section">
-              <Col className="curriculum__header-block" span={12}>
+              <Col className="curriculum__header-block" xs={24} md={12}>
                 <Text className="curriculum__header">{job}</Text>
                 <Text className="curriculum__subheader">{company}</Text>
               </Col>
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Text
                   className="curriculum__date"
                   style={{ textAlign: "end", display: "block" }}
@@ -125,7 +125,7 @@ export const Home = () => {
                   {date}
                 </Text>
               </Col>
-              <Col span={24}>
+              <Col md={24}>
                 <ul className="curriculum__list">
                   {description.map((desc: string, indexDesc) => (
                     <li key={`desc-${indexDesc}`}>{desc}</li>
@@ -140,11 +140,11 @@ export const Home = () => {
           const { course, date, school } = education;
           return (
             <Row key={`education-${index}`} className="curriculum__section">
-              <Col className="curriculum__header-block" span={12}>
+              <Col className="curriculum__header-block" xs={24} md={12}>
                 <Text className="curriculum__header">{course}</Text>
                 <Text className="curriculum__subheader">{school}</Text>
               </Col>
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Text
                   className="curriculum__date"
                   style={{ textAlign: "end", display: "block" }}
@@ -160,11 +160,11 @@ export const Home = () => {
           const { course, date, description } = certificate;
           return (
             <Row key={`certificate-${index}`} className="curriculum__section">
-              <Col className="curriculum__header-block" span={12}>
+              <Col className="curriculum__header-block" xs={24} md={12}>
                 <Text className="curriculum__header">{course}</Text>
                 <Text className="curriculum__subheader">{description}</Text>
               </Col>
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Text
                   className="curriculum__date"
                   style={{ textAlign: "end", display: "block" }}
@@ -180,11 +180,11 @@ export const Home = () => {
           const { award, date, description } = aw;
           return (
             <Row key={`aw-${index}`} className="curriculum__section">
-              <Col className="curriculum__header-block" span={12}>
+              <Col className="curriculum__header-block" xs={24} md={12}>
                 <Text className="curriculum__header">{award}</Text>
                 <Text className="curriculum__subheader">{description}</Text>
               </Col>
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Text
                   className="curriculum__date"
                   style={{ textAlign: "end", display: "block" }}
