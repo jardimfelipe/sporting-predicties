@@ -10,18 +10,41 @@ export interface Ranking {
   defenseParameter: number;
 }
 
+export interface Standing {
+  champion: number;
+  image: string;
+  mainPositions: number;
+  minorPositions: number;
+  points: number;
+  predictedGoalsAgainst: number;
+  predictedGoalsDifference: number;
+  predictedGoalsFor: number;
+  predictedPoints: number;
+  relegatePositions: number;
+  team: string;
+}
+
 export interface RankingState {
   localRanking?: Ranking[];
   internationalRanking?: Ranking[];
 }
 
-export interface RankingContextType {
-  ranking: RankingState;
-  setRanking: (Ranking: RankingState) => void;
+export interface PredictionsState {
+  standings?: Standing[];
+  matches?: any;
 }
 
-export const RankingContext = createContext<RankingContextType>({
+export interface AppContextType {
+  ranking: RankingState;
+  predictions: PredictionsState;
+  setRanking: (Ranking: RankingState) => void;
+  setPredictions: (Predictions: PredictionsState) => void;
+}
+
+export const AppContext = createContext<AppContextType>({
   ranking: {},
+  predictions: {},
   setRanking: (ranking) => ranking,
+  setPredictions: (predictions) => predictions,
 });
-export const useRanking = () => useContext(RankingContext);
+export const useAppContext = () => useContext(AppContext);

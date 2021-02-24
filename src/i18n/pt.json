@@ -1,7 +1,9 @@
 {
-  "curriculum": "Currículo",
-  "predictions": "Previsões",
-  "rankings": "Rankings",
+  "menu": {
+    "curriculum": "Currículo",
+    "predictions": "Previsões",
+    "rankings": "Rankings"
+  },
   "summary": "Summary",
   "summaryText": "Texto sumário",
   "phone": "Telefone",
@@ -96,6 +98,10 @@
     "subTitle": "Compare times pelo Soccer Power Index",
     "localRanking": "Ranking Local",
     "internationalRanking": "Ranking Internacional"
+  },
+  "predictions": {
+    "title": "Previsões dos times de futebol",
+    "subTitle": "Previsões e classificação SPI das ligas"
   },
   "table": {
     "ranking": "Ranking",

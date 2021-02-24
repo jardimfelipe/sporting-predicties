@@ -1,32 +1,26 @@
 import React, { useEffect, useState } from "react";
 
-import { Typography, Row, Col, Image, Select } from "antd";
-import { Container, Table } from "@components";
+import { Typography, Row, Col, Image, Radio, RadioChangeEvent } from "antd";
+import { Table } from "@components";
 import { ColumnsType } from "antd/lib/table";
 import styled from "styled-components";
 
-import { useRanking, Ranking as IRanking } from "../../Context";
+import { useAppContext, Ranking as IRanking } from "../../Context";
 import api from "@config/api";
 
 import { useTranslation } from "react-i18next";
 
 const { Title, Text } = Typography;
-const { Option } = Select;
 type RankingTypes = "internationalRanking" | "localRanking";
 
-const SelectWrapper = styled.div`
+const RadioWrapper = styled.div`
   margin: 1rem 0;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
-  label {
-    display: block;
-  }
+  justify-content: flex-end;
 `;
 
 export const Ranking = () => {
-  const { ranking, setRanking } = useRanking();
+  const { ranking, setRanking } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
   const [currentRanking, setCurrentRanking] = useState<RankingTypes>(
     "localRanking"
@@ -65,7 +59,7 @@ export const Ranking = () => {
       className: "single-column",
       render: (value, record) => (
         <span className="image-col">
-          <Image src={record.image} />
+          <Image preview={false} src={record.image} />
           {value}
         </span>
       ),
@@ -93,7 +87,7 @@ export const Ranking = () => {
           width: 30,
           render: (value) => (
             <div
-              style={{ backgroundColor: getColor(value, "att") }}
+              style={{ backgroundColor: getColor(value) }}
               className={`rating att--drop-6`}
             >
               {value.toFixed(1)}
@@ -108,7 +102,7 @@ export const Ranking = () => {
           width: 30,
           render: (value) => (
             <div
-              style={{ backgroundColor: getColor(value, "deff") }}
+              style={{ backgroundColor: getColor(value) }}
               className={`rating def--drop-6`}
             >
               {value.toFixed(1)}
@@ -119,8 +113,8 @@ export const Ranking = () => {
     },
   ];
 
-  const handleChange = (value: RankingTypes) => {
-    setCurrentRanking(value);
+  const handleChange = (e: RadioChangeEvent) => {
+    setCurrentRanking(e.target.value);
   };
 
   const toCamel = (s: string) => {
@@ -129,20 +123,17 @@ export const Ranking = () => {
     });
   };
 
-  const getColor = (value: number, type: string) => {
+  const getColor = (value: number) => {
     if (value <= 1) {
-      return type === "att"
-        ? `rgba(255,39,0,${1 - value})`
-        : `rgba(68, 171, 67, ${value - 0.5})`;
+      return `rgba(255,39,0,${1 - value})`;
     }
     if (value === 0) return "";
-    return type === "att"
-      ? `rgba(68, 171, 67, ${value - 1})`
-      : `rgba(255,39,0,${value - 1})`;
+    return `rgba(68, 171, 67, ${value - 1})`;
   };
 
   useEffect(() => {
     (async () => {
+      if (ranking.internationalRanking) return;
       setIsLoading(true);
       const { data } = await api.get("/rankings");
 
@@ -181,26 +172,27 @@ export const Ranking = () => {
       setRanking({ localRanking, internationalRanking });
       setIsLoading(false);
     })();
-  }, [setRanking]);
+  }, [setRanking, ranking.internationalRanking]);
   return (
-    <Container>
+    <>
       <Row>
         <Col span={24} style={{ textAlign: "center" }}>
-          <Title>{t("ranking.title")}</Title>
+          <Title style={{ margin: 0 }}>{t("ranking.title")}</Title>
           <Text type="secondary">{t("ranking.subTitle")}</Text>
         </Col>
       </Row>
       <Row>
         <Col span={24}>
-          <SelectWrapper>
-            <label>Selectione o ranking:</label>
-            <Select onChange={handleChange} defaultValue={currentRanking}>
-              <Option value="localRanking">{t("ranking.localRanking")}</Option>
-              <Option value="internationalRanking">
+          <RadioWrapper>
+            <Radio.Group onChange={handleChange} defaultValue="localRanking">
+              <Radio.Button value="localRanking">
+                {t("ranking.localRanking")}
+              </Radio.Button>
+              <Radio.Button value="internationalRanking">
                 {t("ranking.internationalRanking")}
-              </Option>
-            </Select>
-          </SelectWrapper>
+              </Radio.Button>
+            </Radio.Group>
+          </RadioWrapper>
         </Col>
       </Row>
       <Row>
@@ -213,6 +205,6 @@ export const Ranking = () => {
           />
         </Col>
       </Row>
-    </Container>
+    </>
   );
 };
