@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 import { Typography, Row, Col } from "antd";
-import { Divider, Container, SocialButtons } from "@components";
+import { Divider, SocialButtons } from "@components";
 
 const { Title, Text } = Typography;
 
@@ -90,112 +90,110 @@ export const Home = () => {
   });
 
   return (
-    <Container>
-      <CurriculumContainer>
-        <Row align="middle">
-          <Col xs={24} md={12}>
-            <Col md={24}>
-              <Title className="authorName">Matheus Hanssen</Title>
-            </Col>
-            <Col md={24} className="curriculum__icons">
-              <SocialButtons curriculumButton />
-              {/* <Button type="primary" shape="circle" icon={<SearchOutlined />} /> */}
-            </Col>
-          </Col>
-        </Row>
-        <Row align="middle">
+    <CurriculumContainer>
+      <Row align="middle">
+        <Col xs={24} md={12}>
           <Col md={24}>
-            <Text>{t("summaryText")}</Text>
+            <Title className="authorName">Matheus Hanssen</Title>
           </Col>
-        </Row>
-        <Divider>{t("professionalExperience")}</Divider>
-        {professionalExperiences.map((professionalExperience, index) => {
-          const { job, company, date, description } = professionalExperience;
-          return (
-            <Row key={`professional-${index}`} className="curriculum__section">
-              <Col className="curriculum__header-block" xs={24} md={12}>
-                <Text className="curriculum__header">{job}</Text>
-                <Text className="curriculum__subheader">{company}</Text>
-              </Col>
-              <Col xs={24} md={12}>
-                <Text
-                  className="curriculum__date"
-                  style={{ textAlign: "end", display: "block" }}
-                >
-                  {date}
-                </Text>
-              </Col>
-              <Col md={24}>
-                <ul className="curriculum__list">
-                  {description.map((desc: string, indexDesc) => (
-                    <li key={`desc-${indexDesc}`}>{desc}</li>
-                  ))}
-                </ul>
-              </Col>
-            </Row>
-          );
-        })}
-        <Divider>{t("education")}</Divider>
-        {educations.map((education, index) => {
-          const { course, date, school } = education;
-          return (
-            <Row key={`education-${index}`} className="curriculum__section">
-              <Col className="curriculum__header-block" xs={24} md={12}>
-                <Text className="curriculum__header">{course}</Text>
-                <Text className="curriculum__subheader">{school}</Text>
-              </Col>
-              <Col xs={24} md={12}>
-                <Text
-                  className="curriculum__date"
-                  style={{ textAlign: "end", display: "block" }}
-                >
-                  {date}
-                </Text>
-              </Col>
-            </Row>
-          );
-        })}
-        <Divider>{t("certificate")}</Divider>
-        {certificates.map((certificate, index) => {
-          const { course, date, description } = certificate;
-          return (
-            <Row key={`certificate-${index}`} className="curriculum__section">
-              <Col className="curriculum__header-block" xs={24} md={12}>
-                <Text className="curriculum__header">{course}</Text>
-                <Text className="curriculum__subheader">{description}</Text>
-              </Col>
-              <Col xs={24} md={12}>
-                <Text
-                  className="curriculum__date"
-                  style={{ textAlign: "end", display: "block" }}
-                >
-                  {date}
-                </Text>
-              </Col>
-            </Row>
-          );
-        })}
-        <Divider>{t("award")}</Divider>
-        {awards.map((aw, index) => {
-          const { award, date, description } = aw;
-          return (
-            <Row key={`aw-${index}`} className="curriculum__section">
-              <Col className="curriculum__header-block" xs={24} md={12}>
-                <Text className="curriculum__header">{award}</Text>
-                <Text className="curriculum__subheader">{description}</Text>
-              </Col>
-              <Col xs={24} md={12}>
-                <Text
-                  className="curriculum__date"
-                  style={{ textAlign: "end", display: "block" }}
-                >
-                  {date}
-                </Text>
-              </Col>
-            </Row>
-          );
-        })}
-      </CurriculumContainer>
-    </Container>
+          <Col md={24} className="curriculum__icons">
+            <SocialButtons curriculumButton />
+            {/* <Button type="primary" shape="circle" icon={<SearchOutlined />} /> */}
+          </Col>
+        </Col>
+      </Row>
+      <Row align="middle">
+        <Col md={24}>
+          <Text>{t("summaryText")}</Text>
+        </Col>
+      </Row>
+      <Divider>{t("professionalExperience")}</Divider>
+      {professionalExperiences.map((professionalExperience, index) => {
+        const { job, company, date, description } = professionalExperience;
+        return (
+          <Row key={`professional-${index}`} className="curriculum__section">
+            <Col className="curriculum__header-block" xs={24} md={12}>
+              <Text className="curriculum__header">{job}</Text>
+              <Text className="curriculum__subheader">{company}</Text>
+            </Col>
+            <Col xs={24} md={12}>
+              <Text
+                className="curriculum__date"
+                style={{ textAlign: "end", display: "block" }}
+              >
+                {date}
+              </Text>
+            </Col>
+            <Col md={24}>
+              <ul className="curriculum__list">
+                {description.map((desc: string, indexDesc) => (
+                  <li key={`desc-${indexDesc}`}>{desc}</li>
+                ))}
+              </ul>
+            </Col>
+          </Row>
+        );
+      })}
+      <Divider>{t("education")}</Divider>
+      {educations.map((education, index) => {
+        const { course, date, school } = education;
+        return (
+          <Row key={`education-${index}`} className="curriculum__section">
+            <Col className="curriculum__header-block" xs={24} md={12}>
+              <Text className="curriculum__header">{course}</Text>
+              <Text className="curriculum__subheader">{school}</Text>
+            </Col>
+            <Col xs={24} md={12}>
+              <Text
+                className="curriculum__date"
+                style={{ textAlign: "end", display: "block" }}
+              >
+                {date}
+              </Text>
+            </Col>
+          </Row>
+        );
+      })}
+      <Divider>{t("certificate")}</Divider>
+      {certificates.map((certificate, index) => {
+        const { course, date, description } = certificate;
+        return (
+          <Row key={`certificate-${index}`} className="curriculum__section">
+            <Col className="curriculum__header-block" xs={24} md={12}>
+              <Text className="curriculum__header">{course}</Text>
+              <Text className="curriculum__subheader">{description}</Text>
+            </Col>
+            <Col xs={24} md={12}>
+              <Text
+                className="curriculum__date"
+                style={{ textAlign: "end", display: "block" }}
+              >
+                {date}
+              </Text>
+            </Col>
+          </Row>
+        );
+      })}
+      <Divider>{t("award")}</Divider>
+      {awards.map((aw, index) => {
+        const { award, date, description } = aw;
+        return (
+          <Row key={`aw-${index}`} className="curriculum__section">
+            <Col className="curriculum__header-block" xs={24} md={12}>
+              <Text className="curriculum__header">{award}</Text>
+              <Text className="curriculum__subheader">{description}</Text>
+            </Col>
+            <Col xs={24} md={12}>
+              <Text
+                className="curriculum__date"
+                style={{ textAlign: "end", display: "block" }}
+              >
+                {date}
+              </Text>
+            </Col>
+          </Row>
+        );
+      })}
+    </CurriculumContainer>
   );
 };

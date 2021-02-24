@@ -61,17 +61,17 @@ const HeaderMenu = styled(Menu)`
 `;
 const menuItems = [
   {
-    title: "curriculum",
+    title: "menu.curriculum",
     path: "/",
     icon: <IdcardOutlined />,
   },
   {
-    title: "predictions",
+    title: "menu.predictions",
     path: "/predictions",
     icon: <LineChartOutlined />,
   },
   {
-    title: "rankings",
+    title: "menu.rankings",
     path: "/rankings",
     icon: <BarChartOutlined />,
   },

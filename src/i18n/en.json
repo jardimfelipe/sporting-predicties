@@ -1,7 +1,9 @@
 {
-  "curriculum": "Resume",
-  "predictions": "Predictions",
-  "rankings": "Rankings",
+  "menu": {
+    "curriculum": "Resume",
+    "predictions": "Predictions",
+    "rankings": "Rankings"
+  },
   "summary": "Summary",
   "summaryText": "Texto sumário",
   "phone": "Telefone",
@@ -95,6 +97,10 @@
     "subTitle": "Compare teams by Soccer Power Index",
     "localRanking": "Local Ranking",
     "internationalRanking": "International Ranking"
+  },
+  "predictions": {
+    "title": "Club Soccer Predictions",
+    "subTitle": "Forecasts and Soccer Power Index (SPI) ratings"
   },
   "table": {
     "ranking": "Ranking",
