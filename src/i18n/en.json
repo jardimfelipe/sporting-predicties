@@ -1,4 +1,17 @@
 {
+  "input": {
+    "brazilSerieA": "Brazil: Brasileirão Série A",
+    "brazilSerieB": "Brazil: Brasileirão Série B",
+    "englandPremierLeague": "England: Premier League",
+    "franceLigue-1": "France: League 1",
+    "germanyBundesliga": "Germany: Bundesliga",
+    "italySerieA": "Italy: Serie A",
+    "netherlandsEredivisie": "Netherlands: Eredivisie",
+    "portugalPortugueseLiga-": "Portugal: Portuguese Liga",
+    "spainPrimeraDivision": "Spain: Primera Division",
+    "table": "Table",
+    "matches": "Matches"
+  },
   "menu": {
     "curriculum": "Resume",
     "predictions": "Predictions",
@@ -110,6 +123,18 @@
     "attackParameter": "Attack Parameter",
     "defenseParameter": "Defense Parameter",
     "teamCountry": "Team Country",
-    "teamRating": "Team Rating"
+    "teamRating": "Team Rating",
+    "performance": "Team Performance",
+    "predictedValues": "Predicted Values",
+    "predictedGoalsAgainst": "Predicted Goals Against",
+    "predictedGoalsFor": "Predicted Goals For",
+    "predictedGoalsDifference": "Goals Diff.",
+    "predictedAverageSeason": "Predicted Average Season",
+    "endOfSeasonPredicties": "End Of Season Predicties",
+    "predictedPoints": "PTS",
+    "mainPositions": "G4",
+    "minorPositions": "G6",
+    "relegatePositions": "Relegated",
+    "champion": "Champion"
   }
 }
