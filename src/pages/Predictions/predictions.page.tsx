@@ -27,6 +27,10 @@ const toCamel = (s: string) => {
   });
 };
 
+const getColor = (value: number) => {
+  return `rgba(255, 133, 46, ${value})`;
+};
+
 type LeagueOption = {
   label: string;
   value: any;
@@ -35,6 +39,10 @@ type LeagueOption = {
 type OnChangeEvent = {
   value: string | RadioChangeEvent;
   name: string;
+};
+
+type DetaskColumnType = {
+  value: number;
 };
 
 const SelectWrapper = styled.div`
@@ -51,6 +59,20 @@ const SelectWrapper = styled.div`
   label {
     display: block;
   }
+`;
+
+const DestakColumn = styled.div<DetaskColumnType>`
+  line-height: 0;
+  ${({ value }: DetaskColumnType) => {
+    return value * 100 < 0.1 && value * 100 > 0
+      ? `
+      color: #cccccc;
+    `
+      : `
+      box-shadow: 0 0 0 50px ${getColor(value)};
+      background-color: ${getColor(value)};
+      `;
+  }};
 `;
 
 export const Predictions = () => {
@@ -76,7 +98,7 @@ export const Predictions = () => {
       title: t("table.teamName"),
       dataIndex: "team",
       key: "team",
-      className: "single-column",
+      className: "single-column vertical-border",
       render: (value, record) => (
         <>
           <span className="image-col">
@@ -132,7 +154,11 @@ export const Predictions = () => {
           key: "relegatePositions",
           width: 100,
           align: "center",
-          render: (value) => renderPorcentageValue(value * 100),
+          render: (value) => (
+            <DestakColumn value={value}>
+              {renderPorcentageValue(value * 100)}
+            </DestakColumn>
+          ),
         },
         {
           title: t("table.champion"),
@@ -140,7 +166,12 @@ export const Predictions = () => {
           key: "champion",
           align: "center",
           width: 100,
-          render: (value) => renderPorcentageValue(value * 100),
+
+          render: (value) => (
+            <DestakColumn value={value}>
+              {renderPorcentageValue(value * 100)}
+            </DestakColumn>
+          ),
         },
       ],
     },

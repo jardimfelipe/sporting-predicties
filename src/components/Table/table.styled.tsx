@@ -17,6 +17,7 @@ export const StyledTable = styled(AntdTable)`
     td {
       border: none;
       position: relative;
+      overflow: hidden;
       &.vertical-border {
         border-right: 2px solid #000000;
       }
