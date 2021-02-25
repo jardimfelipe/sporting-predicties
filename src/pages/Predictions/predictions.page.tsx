@@ -3,15 +3,23 @@ import React, { useState, useEffect } from "react";
 import { useAppContext, Standing, League } from "../../Context";
 import api from "@config/api";
 
-import { Row, Col, Typography, Image, Select } from "antd";
+import {
+  Row,
+  Col,
+  Typography,
+  Image,
+  Select,
+  Radio,
+  RadioChangeEvent,
+} from "antd";
 import { Table } from "@components";
 import styled from "styled-components";
+import { FaCheck } from "react-icons/fa";
 
 import { useTranslation } from "react-i18next";
 import { ColumnsType } from "antd/es/table";
 
 const { Title, Text } = Typography;
-const { Option } = Select;
 
 const toCamel = (s: string) => {
   return s.replace(/([-_][a-z])/gi, ($1) => {
@@ -19,17 +27,27 @@ const toCamel = (s: string) => {
   });
 };
 
-type LeagueTypes = "brazilSerieA";
-
 type LeagueOption = {
   label: string;
   value: any;
 };
 
+type OnChangeEvent = {
+  value: string | RadioChangeEvent;
+  name: string;
+};
+
 const SelectWrapper = styled.div`
-  margin: 1rem 0;
+  margin: 3rem 0;
   display: flex;
   justify-content: flex-start;
+  gap: 20px;
+  .ant-select {
+    flex: 0 0 250px;
+  }
+  .ant-radio-group {
+    display: flex;
+  }
   label {
     display: block;
   }
@@ -40,15 +58,16 @@ export const Predictions = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [leagueOptions, setLeagueOptions] = useState<any[]>([]);
-  const [currentLeague, setCurrentLeague] = useState<LeagueTypes>(
-    "brazilSerieA"
-  );
+  const [sectionParams, setSectionParams] = useState({
+    league: "brazilSerieA",
+    pageMode: "table",
+  });
 
   const renderPorcentageValue = (value: number) => {
     if (value > 0 && value < 0.1) return "< 0.1%";
     if (value > 99 && value < 100) return "> 99%";
     if (value === 0) return "-";
-    if (value === 100) return "v";
+    if (value === 100) return <FaCheck />;
     return `${value.toFixed(1)}%`;
   };
 
@@ -71,30 +90,6 @@ export const Predictions = () => {
         </>
       ),
     },
-    // {
-    //   title: t("table.performance"),
-    //   className: "header-cell",
-    //   children: [
-    //     {
-    //       title: t("table.predictedGoalsAgainst"),
-    //       dataIndex: "predictedGoalsAgainst",
-    //       key: "predictedGoalsAgainst",
-    //       render: (value) => value.toFixed(1),
-    //     },
-    //     {
-    //       title: t("table.predictedGoalsFor"),
-    //       dataIndex: "predictedGoalsFor",
-    //       key: "predictedGoalsFor",
-    //       render: (value) => value.toFixed(1),
-    //     },
-    //     {
-    //       title: t("table.predictedGoalsDifference"),
-    //       dataIndex: "predictedGoalsDifference",
-    //       key: "predictedGoalsDifference",
-    //       render: (value) => value.toFixed(1),
-    //     },
-    //   ],
-    // },
     {
       title: t("table.predictedValues"),
       className: "header-cell",
@@ -151,6 +146,13 @@ export const Predictions = () => {
     },
   ];
 
+  const handleChange = ({ name, value }: OnChangeEvent) => {
+    setSectionParams({
+      ...sectionParams,
+      [name]: value,
+    });
+  };
+
   useEffect(() => {
     (async () => {
       if (predictions.standings) return;
@@ -168,14 +170,6 @@ export const Predictions = () => {
             (standingArr: Array<object>, standingKeys: string, index) => {
               const team = Object.keys(dataStandings[curr]).reduce(
                 (teamObj: any, keys) => {
-                  // const x = Object.keys(dataStandings[curr][keys]).reduce(
-                  //   (obj: any, currency: string) => {
-                  //     obj[toCamel(keys)] =
-                  //       dataStandings[curr][keys][parseInt(currency)];
-                  //     return obj;
-                  //   },
-                  //   {}
-                  // );
                   teamObj = {
                     ...teamObj,
                     ...{
@@ -198,7 +192,7 @@ export const Predictions = () => {
       setPredictions({ standings });
       setIsLoading(false);
     })();
-  }, [setPredictions]);
+  }, [setPredictions, predictions.standings]);
 
   useEffect(() => {
     if (predictions.standings) {
@@ -224,11 +218,24 @@ export const Predictions = () => {
         <Col span={24}>
           <SelectWrapper>
             <Select
+              onChange={(value) => handleChange({ name: "league", value })}
               placeholder={t("select.chooseLeague")}
               options={leagueOptions}
               defaultValue={"brazilSerieA"}
               size="large"
             />
+            <Radio.Group
+              onChange={(e) =>
+                handleChange({ name: "isMathes", value: e.target.value })
+              }
+              defaultValue={"table"}
+              size="large"
+            >
+              <Radio.Button value="table">{t("input.table")}</Radio.Button>
+              <Radio.Button disabled={true} value="matches">
+                {t("input.matches")}
+              </Radio.Button>
+            </Radio.Group>
           </SelectWrapper>
         </Col>
       </Row>
@@ -241,7 +248,7 @@ export const Predictions = () => {
             dataSource={
               predictions.standings
                 ? predictions.standings[
-                    currentLeague as keyof typeof predictions.standings
+                    sectionParams.league as keyof typeof predictions.standings
                   ]
                 : []
             }

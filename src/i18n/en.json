@@ -1,7 +1,16 @@
 {
   "input": {
-    "brazilSerieA": "Brasileirão: Série A",
-    "brazilSerieB": "Brasileirão: Série B"
+    "brazilSerieA": "Brazil: Brasileirão Série A",
+    "brazilSerieB": "Brazil: Brasileirão Série B",
+    "englandPremierLeague": "England: Premier League",
+    "franceLigue-1": "France: League 1",
+    "germanyBundesliga": "Germany: Bundesliga",
+    "italySerieA": "Italy: Serie A",
+    "netherlandsEredivisie": "Netherlands: Eredivisie",
+    "portugalPortugueseLiga-": "Portugal: Portuguese Liga",
+    "spainPrimeraDivision": "Spain: Primera Division",
+    "table": "Table",
+    "matches": "Matches"
   },
   "menu": {
     "curriculum": "Resume",

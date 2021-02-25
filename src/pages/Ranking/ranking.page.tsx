@@ -14,9 +14,9 @@ const { Title, Text } = Typography;
 type RankingTypes = "internationalRanking" | "localRanking";
 
 const RadioWrapper = styled.div`
-  margin: 1rem 0;
+  margin: 3rem 0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 `;
 
 export const Ranking = () => {
@@ -184,7 +184,11 @@ export const Ranking = () => {
       <Row>
         <Col span={24}>
           <RadioWrapper>
-            <Radio.Group onChange={handleChange} defaultValue="localRanking">
+            <Radio.Group
+              size="large"
+              onChange={handleChange}
+              defaultValue="localRanking"
+            >
               <Radio.Button value="localRanking">
                 {t("ranking.localRanking")}
               </Radio.Button>
