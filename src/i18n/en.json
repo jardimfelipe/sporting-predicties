@@ -1,4 +1,8 @@
 {
+  "input": {
+    "brazilSerieA": "Brasileirão: Série A",
+    "brazilSerieB": "Brasileirão: Série B"
+  },
   "menu": {
     "curriculum": "Resume",
     "predictions": "Predictions",
@@ -110,6 +114,18 @@
     "attackParameter": "Attack Parameter",
     "defenseParameter": "Defense Parameter",
     "teamCountry": "Team Country",
-    "teamRating": "Team Rating"
+    "teamRating": "Team Rating",
+    "performance": "Team Performance",
+    "predictedValues": "Predicted Values",
+    "predictedGoalsAgainst": "Predicted Goals Against",
+    "predictedGoalsFor": "Predicted Goals For",
+    "predictedGoalsDifference": "Goals Diff.",
+    "predictedAverageSeason": "Predicted Average Season",
+    "endOfSeasonPredicties": "End Of Season Predicties",
+    "predictedPoints": "PTS",
+    "mainPositions": "G4",
+    "minorPositions": "G6",
+    "relegatePositions": "Relegated",
+    "champion": "Champion"
   }
 }

@@ -11,9 +11,17 @@ const { Content } = Layout;
 function App() {
   const [ranking, setRanking] = useState({});
   const [predictions, setPredictions] = useState({});
+  const [lastUpdate, setLastUpdate] = useState({});
   return (
     <AppContext.Provider
-      value={{ ranking, predictions, setRanking, setPredictions }}
+      value={{
+        ranking,
+        predictions,
+        lastUpdate,
+        setRanking,
+        setPredictions,
+        setLastUpdate,
+      }}
     >
       <BrowserRouter>
         <Header />

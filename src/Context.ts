@@ -1,5 +1,14 @@
 import { createContext, useContext } from "react";
 
+export interface League {
+  [key: string]: Standing[];
+}
+
+export interface LastUpdateState {
+  en?: string;
+  pt?: string;
+}
+
 export interface Ranking {
   ranking: number;
   positionChange: number;
@@ -30,21 +39,25 @@ export interface RankingState {
 }
 
 export interface PredictionsState {
-  standings?: Standing[];
+  standings?: League;
   matches?: any;
 }
 
 export interface AppContextType {
   ranking: RankingState;
   predictions: PredictionsState;
+  lastUpdate: LastUpdateState;
   setRanking: (Ranking: RankingState) => void;
   setPredictions: (Predictions: PredictionsState) => void;
+  setLastUpdate: (LastUpdate: LastUpdateState) => void;
 }
 
 export const AppContext = createContext<AppContextType>({
   ranking: {},
   predictions: {},
+  lastUpdate: {},
   setRanking: (ranking) => ranking,
   setPredictions: (predictions) => predictions,
+  setLastUpdate: (lastUpdate) => lastUpdate,
 });
 export const useAppContext = () => useContext(AppContext);

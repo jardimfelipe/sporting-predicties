@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Table as AntdTable } from "antd";
 
-export const Table = styled(AntdTable)`
+export const StyledTable = styled(AntdTable)`
   tr {
     th {
       background-color: #ffffff;
@@ -24,6 +24,9 @@ export const Table = styled(AntdTable)`
         &.image-col {
           display: flex;
           align-items: center;
+          span {
+            margin-left: 10px;
+          }
         }
         &.position-change {
           width: 35px;

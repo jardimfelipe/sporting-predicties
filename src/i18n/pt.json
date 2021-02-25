@@ -111,6 +111,13 @@
     "attackParameter": "Attack Parameter",
     "defenseParameter": "Defense Parameter",
     "teamCountry": "País do Time",
-    "teamRating": "Team Rating"
+    "teamRating": "Team Rating",
+    "predictedValues": "Valores Previstos",
+    "predictedGoalsDifference": "SG",
+    "predictedPoints": "PTS",
+    "mainPositions": "G4",
+    "minorPositions": "G6",
+    "relegatePositions": "Rebaixado",
+    "champion": "Campeão"
   }
 }
