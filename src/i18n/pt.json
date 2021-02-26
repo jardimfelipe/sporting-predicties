@@ -130,6 +130,8 @@
     "predictedPoints": "PTS",
     "mainPositions": "G4",
     "minorPositions": "G6",
+    "mainPositionsEuropean": "UCL",
+    "minorPositionsEuropean": "EL",
     "relegatePositions": "Rebaixado",
     "champion": "Campeão"
   }

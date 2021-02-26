@@ -33,8 +33,6 @@ type Awards = {
 };
 
 const CurriculumContainer = styled.div`
-  padding: 50px 40px;
-  background-color: #fff;
   .curriculum {
     &__section {
       margin-bottom: 1rem;
