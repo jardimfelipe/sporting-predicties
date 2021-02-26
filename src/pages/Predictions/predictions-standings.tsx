@@ -210,10 +210,10 @@ export const PredictionsStandings: React.FC<PageProps> = ({
     return () => {
       unmounted = true;
     };
-  }, [setPredictions, predictions.standings]);
+  }, [setPredictions, predictions]);
 
   useEffect(() => {
-    if (predictions.standings) {
+    if (!!predictions.standings) {
       const selectOptions: LeagueOption[] = Object.keys(
         predictions.standings
       ).map((key) => ({

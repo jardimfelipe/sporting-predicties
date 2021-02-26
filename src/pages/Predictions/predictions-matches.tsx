@@ -1,19 +1,25 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppContext, Matches } from "../../Context";
+
+import { useTranslation } from "react-i18next";
 
 import { MatchPanel } from "@components";
 
 import api from "@config/api";
 
-import { PageProps } from "./types";
+import { PageProps, LeagueOption } from "./types";
 
 import { toCamel, parseParam } from "@utils";
 
-export const PredictionsMatches: React.FC<PageProps> = ({ currentLeague }) => {
+export const PredictionsMatches: React.FC<PageProps> = ({
+  currentLeague,
+  setLeagueOptions,
+}) => {
   const { predictions, setPredictions } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
 
-  useMemo(() => {
+  useEffect(() => {
     let unmounted = false;
     if (predictions.matches) return;
     if (unmounted) return;
@@ -52,6 +58,18 @@ export const PredictionsMatches: React.FC<PageProps> = ({ currentLeague }) => {
       unmounted = true;
     };
   }, [predictions, setPredictions]);
+
+  useEffect(() => {
+    if (!!predictions.matches) {
+      const selectOptions: LeagueOption[] = Object.keys(
+        predictions.matches
+      ).map((key) => ({
+        label: t(`input.${key}`),
+        value: key,
+      }));
+      if (setLeagueOptions) setLeagueOptions(selectOptions);
+    }
+  }, [predictions.matches, t, setLeagueOptions]);
   return (
     <>
       {predictions.matches ? (

@@ -85,7 +85,10 @@ export const Predictions = () => {
               setLeagueOptions={handleOptionsChange}
             />
           ) : (
-            <PredictionsMatches currentLeague={sectionParams.league} />
+            <PredictionsMatches
+              currentLeague={sectionParams.league}
+              setLeagueOptions={handleOptionsChange}
+            />
           )}
         </Col>
       </Row>
