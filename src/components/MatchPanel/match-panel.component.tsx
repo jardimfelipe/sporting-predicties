@@ -26,6 +26,8 @@ const PanelContainer = styled.div`
     .team {
       background: #ccc;
       padding: 10px;
+      display: flex;
+      justify-content: space-between;
       span {
         display: flex;
         align-items: center;
@@ -40,6 +42,10 @@ const PanelContainer = styled.div`
 `;
 
 export const MatchPanel: React.FC<MatchInfo> = ({ match }) => {
+  const renderValue = (value: number) => {
+    const percent = value * 100;
+    return `${percent.toFixed(1)}%`;
+  };
   return (
     <PanelContainer>
       <div className="date">
@@ -47,19 +53,23 @@ export const MatchPanel: React.FC<MatchInfo> = ({ match }) => {
       </div>
       <div className="teams-container">
         <div className="team">
-          <span>
+          <span className="team-name">
             <img alt={match.homeTeam} src={match.homeImage} />
             {match.homeTeam}
           </span>
+          <span className="team-goals">{match.homeGoals}</span>
+          <span className="team-prob">{renderValue(match.probHome)}</span>
         </div>
         <div className="team">
-          <span>
+          <span className="team-name">
             <img alt={match.awayTeam} src={match.awayImage} />
             {match.awayTeam}
           </span>
+          <span className="team-goals">{match.awayGoals}</span>
+          <span className="team-prob">{renderValue(match.probAway)}</span>
         </div>
       </div>
-      <div>{match.probDraw}</div>
+      <div className="team-prob">{renderValue(match.probDraw)}</div>
     </PanelContainer>
   );
 };
