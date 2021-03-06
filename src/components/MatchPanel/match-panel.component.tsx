@@ -1,8 +1,10 @@
 import { Match } from "Context";
-import React from "react";
+import React, { useState } from "react";
 
-import { Typography } from "antd";
+import { Typography, Button } from "antd";
 import { Box } from "@components";
+import { PlusOutlined } from "@ant-design/icons";
+import { MatchModal } from "./match-modal.component";
 
 import { getProbColor } from "@utils";
 
@@ -18,7 +20,15 @@ const PanelContainer: any = styled.div`
   display: flex;
   align-items: center;
   flex: 0 0 345px;
+  position: relative;
   .match {
+    &__button {
+      position: absolute;
+      top: 50%;
+      right: 7rem;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
     &__date {
       background: #f0f0f0;
       padding: 10px;
@@ -59,7 +69,6 @@ const PanelContainer: any = styled.div`
     }
     &__team-prob {
       font-size: 0.785rem;
-      border-left: 1px solid #cccccc;
       position: absolute;
       right: 0;
       height: 100%;
@@ -77,7 +86,7 @@ const PanelContainer: any = styled.div`
           background-color: ${getProbColor(probAway)};
         }
         &--draw {
-          background-color: ${getProbColor(probAway)};
+          background-color: ${getProbColor(probDraw)};
           padding: 5px;
           font-size: 0.785rem;
           border: 1px solid #cccccc;
@@ -89,6 +98,18 @@ const PanelContainer: any = styled.div`
 `;
 
 export const MatchPanel: React.FC<MatchInfo> = ({ matches }) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [currentMatch, setCurrentMatch] = useState<Match | {}>({});
+
+  const handleClick = (match: Match) => {
+    setCurrentMatch((currentMatch) => (currentMatch = { ...match }));
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   const renderValue = (value: number) => {
     const percent = value * 100;
     return `${percent.toFixed(1)}%`;
@@ -128,6 +149,14 @@ export const MatchPanel: React.FC<MatchInfo> = ({ matches }) => {
                   </span>
                 </div>
               </div>
+              <Button
+                shape="circle"
+                type="primary"
+                size="small"
+                className="match__button"
+                icon={<PlusOutlined />}
+                onClick={() => handleClick(match)}
+              />
               <div className="match__team">
                 <span className="match__team-name">
                   <img alt={match.awayTeam} src={match.awayImage} />
@@ -147,6 +176,11 @@ export const MatchPanel: React.FC<MatchInfo> = ({ matches }) => {
           </PanelContainer>
         );
       })}
+      <MatchModal
+        match={currentMatch}
+        onCancel={handleCancel}
+        isVisible={isModalVisible}
+      />
     </Box>
   );
 };
