@@ -11,14 +11,10 @@ import { FaCheck } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { ColumnsType } from "antd/es/table";
 
-import { toCamel, parseParam } from "@utils";
+import { toCamel, parseParam, getProbColor } from "@utils";
 import { LeagueOption, DetaskColumnType, PageProps } from "./types";
 
 const { Text } = Typography;
-
-const getColor = (value: number) => {
-  return `rgba(255, 133, 46, ${value})`;
-};
 
 // const secondDivisionLeagues = ["brazilSerieB"];
 const europeanLeagues = [
@@ -38,8 +34,8 @@ const DestakColumn = styled.div<DetaskColumnType>`
       color: #cccccc;
     `
       : `
-      box-shadow: 0 0 0 50px ${getColor(value)};
-      background-color: ${getColor(value)};
+      box-shadow: 0 0 0 50px ${getProbColor(value)};
+      background-color: ${getProbColor(value)};
       `;
   }};
 `;

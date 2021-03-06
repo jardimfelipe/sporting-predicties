@@ -3,7 +3,8 @@ import { useAppContext, Matches } from "../../Context";
 
 import { useTranslation } from "react-i18next";
 
-import { MatchPanel } from "@components";
+import { MatchPanel, Box } from "@components";
+import { Spin } from "antd";
 
 import api from "@config/api";
 
@@ -72,10 +73,22 @@ export const PredictionsMatches: React.FC<PageProps> = ({
   }, [predictions.matches, t, setLeagueOptions]);
   return (
     <>
-      {predictions.matches ? (
-        <MatchPanel match={predictions.matches[currentLeague][0]} />
+      {!isLoading ? (
+        <MatchPanel
+          matches={
+            predictions.matches ? predictions.matches[currentLeague] : []
+          }
+        />
       ) : (
-        <h1>pl</h1>
+        <Box
+          params={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Spin />
+        </Box>
       )}
     </>
   );

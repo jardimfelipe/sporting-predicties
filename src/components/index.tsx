@@ -6,3 +6,4 @@ export * from "./Footer/footer.component";
 export * from "./Table/table.component";
 export * from "./MatchPanel/match-panel.component";
 export * from "./SocialButtons/social-buttons.component";
+export * from "./Box/box.styled";
