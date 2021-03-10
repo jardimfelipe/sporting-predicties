@@ -19,6 +19,7 @@ type MatchInfo = {
 const PanelContainer: any = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   flex: 0 0 345px;
   position: relative;
   .match {
@@ -99,7 +100,7 @@ const PanelContainer: any = styled.div`
 
 export const MatchPanel: React.FC<MatchInfo> = ({ matches }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [currentMatch, setCurrentMatch] = useState<Match | {}>({});
+  const [currentMatch, setCurrentMatch] = useState<Match>(matches[0]);
 
   const handleClick = (match: Match) => {
     setCurrentMatch((currentMatch) => (currentMatch = { ...match }));
@@ -120,7 +121,7 @@ export const MatchPanel: React.FC<MatchInfo> = ({ matches }) => {
       params={{
         display: "flex",
         flexWrap: "wrap",
-        justifyContent: "flex-start",
+        justifyContent: "center",
         gap: "10px",
       }}
     >
