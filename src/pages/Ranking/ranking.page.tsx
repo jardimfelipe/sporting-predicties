@@ -9,6 +9,7 @@ import { useAppContext, Ranking as IRanking } from "../../Context";
 import api from "@config/api";
 
 import { useTranslation } from "react-i18next";
+import { toCamel } from "@utils";
 
 const { Title, Text } = Typography;
 type RankingTypes = "internationalRanking" | "localRanking";
@@ -115,12 +116,6 @@ export const Ranking = () => {
 
   const handleChange = (e: RadioChangeEvent) => {
     setCurrentRanking(e.target.value);
-  };
-
-  const toCamel = (s: string) => {
-    return s.replace(/([-_][a-z])/gi, ($1) => {
-      return $1.toUpperCase().replace("-", "").replace("_", "");
-    });
   };
 
   const getColor = (value: number) => {

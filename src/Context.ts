@@ -4,6 +4,10 @@ export interface League {
   [key: string]: Standing[];
 }
 
+export interface Matches {
+  [key: string]: Match[];
+}
+
 export interface LastUpdateState {
   en?: string;
   pt?: string;
@@ -33,6 +37,22 @@ export interface Standing {
   team: string;
 }
 
+export interface Match {
+  awayGoals: number;
+  awayImage: string;
+  awayTeam: string;
+  compCountry: string;
+  compName: string;
+  date: string;
+  homeGoals: number;
+  homeImage: string;
+  homeTeam: string;
+  probAway: number;
+  probDraw: number;
+  probHome: number;
+  probResult: number;
+}
+
 export interface RankingState {
   localRanking?: Ranking[];
   internationalRanking?: Ranking[];
@@ -40,7 +60,7 @@ export interface RankingState {
 
 export interface PredictionsState {
   standings?: League;
-  matches?: any;
+  matches?: Matches;
 }
 
 export interface AppContextType {
@@ -54,7 +74,7 @@ export interface AppContextType {
 
 export const AppContext = createContext<AppContextType>({
   ranking: {},
-  predictions: {},
+  predictions: { standings: {}, matches: {} },
   lastUpdate: {},
   setRanking: (ranking) => ranking,
   setPredictions: (predictions) => predictions,

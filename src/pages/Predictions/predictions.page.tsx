@@ -1,49 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 
-import { useAppContext, Standing, League } from "../../Context";
-import api from "@config/api";
-
-import {
-  Row,
-  Col,
-  Typography,
-  Image,
-  Select,
-  Radio,
-  RadioChangeEvent,
-} from "antd";
-import { Table } from "@components";
+import { Row, Col, Typography, Select, Radio } from "antd";
 import styled from "styled-components";
-import { FaCheck } from "react-icons/fa";
+
+import { PredictionsStandings } from "./predictions-standings";
 
 import { useTranslation } from "react-i18next";
-import { ColumnsType } from "antd/es/table";
+import { PredictionsMatches } from "./predictions-matches";
+import { OnChangeEvent } from "./types";
 
 const { Title, Text } = Typography;
-
-const toCamel = (s: string) => {
-  return s.replace(/([-_][a-z])/gi, ($1) => {
-    return $1.toUpperCase().replace("-", "").replace("_", "");
-  });
-};
-
-const getColor = (value: number) => {
-  return `rgba(255, 133, 46, ${value})`;
-};
-
-type LeagueOption = {
-  label: string;
-  value: any;
-};
-
-type OnChangeEvent = {
-  value: string | RadioChangeEvent;
-  name: string;
-};
-
-type DetaskColumnType = {
-  value: number;
-};
 
 const SelectWrapper = styled.div`
   margin: 3rem 0;
@@ -61,121 +27,13 @@ const SelectWrapper = styled.div`
   }
 `;
 
-const DestakColumn = styled.div<DetaskColumnType>`
-  line-height: 0;
-  ${({ value }: DetaskColumnType) => {
-    return value * 100 < 0.1 && value * 100 > 0
-      ? `
-      color: #cccccc;
-    `
-      : `
-      box-shadow: 0 0 0 50px ${getColor(value)};
-      background-color: ${getColor(value)};
-      `;
-  }};
-`;
-
 export const Predictions = () => {
-  const { predictions, setPredictions } = useAppContext();
   const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false);
   const [leagueOptions, setLeagueOptions] = useState<any[]>([]);
   const [sectionParams, setSectionParams] = useState({
     league: "brazilSerieA",
-    pageMode: "table",
+    pageMode: "matches",
   });
-
-  const renderPorcentageValue = (value: number) => {
-    if (value > 0 && value < 0.1) return "< 0.1%";
-    if (value > 99 && value < 100) return "> 99%";
-    if (value === 0) return "-";
-    if (value === 100) return <FaCheck />;
-    return `${value.toFixed(1)}%`;
-  };
-
-  const columns: ColumnsType<Standing> = [
-    {
-      title: t("table.teamName"),
-      dataIndex: "team",
-      key: "team",
-      className: "single-column vertical-border",
-      render: (value, record) => (
-        <>
-          <span className="image-col">
-            <Image preview={false} src={record.image} />
-            {value}
-            <Text type="secondary">
-              {" "}
-              <small>{record.points}pts</small>
-            </Text>
-          </span>
-        </>
-      ),
-    },
-    {
-      title: t("table.predictedValues"),
-      className: "header-cell",
-      children: [
-        {
-          title: t("table.predictedGoalsDifference"),
-          dataIndex: "predictedGoalsDifference",
-          key: "predictedGoalsDifference",
-          width: 100,
-          align: "center",
-          render: (value) => value.toFixed(0),
-        },
-        {
-          title: t("table.predictedPoints"),
-          dataIndex: "predictedPoints",
-          key: "predictedPoints",
-          width: 100,
-          align: "center",
-          render: (value) => value.toFixed(0),
-        },
-        {
-          title: t("table.mainPositions"),
-          dataIndex: "mainPositions",
-          key: "mainPositions",
-          align: "center",
-          width: 100,
-          render: (value) => renderPorcentageValue(value * 100),
-        },
-        {
-          title: t("table.minorPositions"),
-          dataIndex: "minorPositions",
-          key: "minorPositions",
-          width: 100,
-          align: "center",
-          render: (value) => renderPorcentageValue(value * 100),
-        },
-        {
-          title: t("table.relegatePositions"),
-          dataIndex: "relegatePositions",
-          key: "relegatePositions",
-          width: 100,
-          align: "center",
-          render: (value) => (
-            <DestakColumn value={value}>
-              {renderPorcentageValue(value * 100)}
-            </DestakColumn>
-          ),
-        },
-        {
-          title: t("table.champion"),
-          dataIndex: "champion",
-          key: "champion",
-          align: "center",
-          width: 100,
-
-          render: (value) => (
-            <DestakColumn value={value}>
-              {renderPorcentageValue(value * 100)}
-            </DestakColumn>
-          ),
-        },
-      ],
-    },
-  ];
 
   const handleChange = ({ name, value }: OnChangeEvent) => {
     setSectionParams({
@@ -184,58 +42,9 @@ export const Predictions = () => {
     });
   };
 
-  useEffect(() => {
-    (async () => {
-      if (predictions.standings) return;
-      setIsLoading(true);
-      const {
-        data: { standings: dataStandings },
-      } = await api.get("/standings");
-      const keys = Object.keys(dataStandings);
-      const standings: League = keys.reduce(
-        (predictsObj: any, curr: string) => {
-          const a = curr.split("/").pop() || "";
-          predictsObj[toCamel(a)] = Object.keys(
-            dataStandings[curr].team
-          ).reduce(
-            (standingArr: Array<object>, standingKeys: string, index) => {
-              const team = Object.keys(dataStandings[curr]).reduce(
-                (teamObj: any, keys) => {
-                  teamObj = {
-                    ...teamObj,
-                    ...{
-                      [toCamel(keys)]: dataStandings[curr][keys][index],
-                    },
-                  };
-                  return teamObj;
-                },
-                {}
-              );
-              standingArr = [...standingArr, team];
-              return standingArr;
-            },
-            []
-          );
-          return predictsObj;
-        },
-        {}
-      );
-      setPredictions({ standings });
-      setIsLoading(false);
-    })();
-  }, [setPredictions, predictions.standings]);
-
-  useEffect(() => {
-    if (predictions.standings) {
-      const selectOptions: LeagueOption[] = Object.keys(
-        predictions.standings
-      ).map((key) => ({
-        label: t(`input.${key}`),
-        value: key,
-      }));
-      setLeagueOptions((leagueOptions) => (leagueOptions = [...selectOptions]));
-    }
-  }, [predictions.standings, t]);
+  const handleOptionsChange = useCallback((selectOptions) => {
+    setLeagueOptions((leagueOptions) => (leagueOptions = [...selectOptions]));
+  }, []);
 
   return (
     <>
@@ -257,33 +66,30 @@ export const Predictions = () => {
             />
             <Radio.Group
               onChange={(e) =>
-                handleChange({ name: "isMathes", value: e.target.value })
+                handleChange({ name: "pageMode", value: e.target.value })
               }
-              defaultValue={"table"}
+              defaultValue={"matches"}
               size="large"
             >
-              <Radio.Button value="table">{t("input.table")}</Radio.Button>
-              <Radio.Button disabled={true} value="matches">
-                {t("input.matches")}
-              </Radio.Button>
+              <Radio.Button value="standings">{t("input.table")}</Radio.Button>
+              <Radio.Button value="matches">{t("input.matches")}</Radio.Button>
             </Radio.Group>
           </SelectWrapper>
         </Col>
       </Row>
       <Row>
         <Col span={24}>
-          <Table
-            rowKey={(row) => row.team}
-            loading={isLoading}
-            columns={columns}
-            dataSource={
-              predictions.standings
-                ? predictions.standings[
-                    sectionParams.league as keyof typeof predictions.standings
-                  ]
-                : []
-            }
-          />
+          {sectionParams.pageMode === "standings" ? (
+            <PredictionsStandings
+              currentLeague={sectionParams.league}
+              setLeagueOptions={handleOptionsChange}
+            />
+          ) : (
+            <PredictionsMatches
+              currentLeague={sectionParams.league}
+              setLeagueOptions={handleOptionsChange}
+            />
+          )}
         </Col>
       </Row>
     </>

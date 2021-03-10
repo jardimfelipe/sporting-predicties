@@ -133,7 +133,9 @@
     "endOfSeasonPredicties": "End Of Season Predicties",
     "predictedPoints": "PTS",
     "mainPositions": "G4",
+    "mainPositionsEuropean": "UCL",
     "minorPositions": "G6",
+    "minorPositionsEuropean": "EL",
     "relegatePositions": "Relegated",
     "champion": "Champion"
   }
