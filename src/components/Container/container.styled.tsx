@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const Container = styled.div`
   background: #ffffff;
@@ -17,6 +17,6 @@ export const Container = styled.div`
     max-width: 720px;
   }
   @media screen and (max-width: 767px) {
-    max-width: 540px;
+    max-width: 750px;
   }
-`;
+`

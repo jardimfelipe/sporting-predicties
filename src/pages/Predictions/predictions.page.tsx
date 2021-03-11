@@ -1,15 +1,18 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback } from "react"
 
-import { Row, Col, Typography, Select, Radio } from "antd";
-import styled from "styled-components";
+import { Row, Col, Typography, Select, Radio } from "antd"
+import { Box } from "@components"
+import styled from "styled-components"
 
-import { PredictionsStandings } from "./predictions-standings";
+import { useAppContext } from "../../Context"
 
-import { useTranslation } from "react-i18next";
-import { PredictionsMatches } from "./predictions-matches";
-import { OnChangeEvent } from "./types";
+import { PredictionsStandings } from "./predictions-standings"
 
-const { Title, Text } = Typography;
+import { useTranslation } from "react-i18next"
+import { PredictionsMatches } from "./predictions-matches"
+import { OnChangeEvent } from "./types"
+
+const { Title, Text } = Typography
 
 const SelectWrapper = styled.div`
   margin: 3rem 0;
@@ -25,33 +28,48 @@ const SelectWrapper = styled.div`
   label {
     display: block;
   }
-`;
+`
 
 export const Predictions = () => {
-  const { t } = useTranslation();
-  const [leagueOptions, setLeagueOptions] = useState<any[]>([]);
+  const { t, i18n } = useTranslation()
+  const { lastUpdate } = useAppContext()
+  const [leagueOptions, setLeagueOptions] = useState<any[]>([])
   const [sectionParams, setSectionParams] = useState({
     league: "brazilSerieA",
     pageMode: "matches",
-  });
+  })
 
   const handleChange = ({ name, value }: OnChangeEvent) => {
     setSectionParams({
       ...sectionParams,
       [name]: value,
-    });
-  };
+    })
+  }
 
   const handleOptionsChange = useCallback((selectOptions) => {
-    setLeagueOptions((leagueOptions) => (leagueOptions = [...selectOptions]));
-  }, []);
+    setLeagueOptions((leagueOptions) => (leagueOptions = [...selectOptions]))
+  }, [])
 
   return (
     <>
       <Row>
-        <Col span={24} style={{ textAlign: "center" }}>
-          <Title style={{ margin: 0 }}>{t("predictions.title")}</Title>
-          <Text type="secondary">{t("predictions.subTitle")}</Text>
+        <Col span={24}>
+          <Box
+            params={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              textAlign: "center",
+            }}
+          >
+            <Title style={{ margin: 0 }}>{t("predictions.title")}</Title>
+            <Text type="secondary">{t("predictions.subTitle")}</Text>
+            {lastUpdate[i18n.language as keyof typeof lastUpdate] && (
+              <Text type="secondary">{`${t("lastUpdate")}: ${
+                lastUpdate[i18n.language as keyof typeof lastUpdate]
+              }`}</Text>
+            )}
+          </Box>
         </Col>
       </Row>
       <Row>
@@ -93,5 +111,5 @@ export const Predictions = () => {
         </Col>
       </Row>
     </>
-  );
-};
+  )
+}
