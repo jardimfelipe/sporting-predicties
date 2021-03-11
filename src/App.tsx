@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
+import React, { useState } from "react"
+import { Switch, Route, BrowserRouter } from "react-router-dom"
+import styled from "styled-components"
 
-import { AppContext } from "./Context";
+import { AppContext } from "./Context"
 
-import { Home, Ranking, Predictions } from "@pages";
-import { Header, Footer, Container } from "@components";
-import { Layout } from "antd";
+import { Home, Ranking, Predictions } from "@pages"
+import { Header, Footer, Container } from "@components"
+import { Layout } from "antd"
 
-const { Content } = Layout;
+const { Content: AntdContent } = Layout
 function App() {
-  const [ranking, setRanking] = useState({});
-  const [predictions, setPredictions] = useState({});
-  const [lastUpdate, setLastUpdate] = useState({});
+  const [ranking, setRanking] = useState({})
+  const [predictions, setPredictions] = useState({})
+  const [lastUpdate, setLastUpdate] = useState({})
   return (
     <AppContext.Provider
       value={{
@@ -25,7 +26,7 @@ function App() {
     >
       <BrowserRouter>
         <Header />
-        <Content style={{ padding: "50px", minHeight: "calc(100vh - 184px)" }}>
+        <Content>
           <Switch>
             <Container>
               <Route exact path="/" component={Home} />
@@ -37,7 +38,15 @@ function App() {
         <Footer />
       </BrowserRouter>
     </AppContext.Provider>
-  );
+  )
 }
 
-export default App;
+export default App
+
+const Content = styled(AntdContent)`
+  padding: 50px;
+  min-height: calc(100vh - 184px);
+  @media screen and (max-width: 767px) {
+    padding: 10px;
+  }
+`

@@ -19,7 +19,7 @@ const SelectWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   gap: 20px;
-  .ant-select {
+  flex-wrap: wrap;
     flex: 0 0 250px;
   }
   .ant-radio-group {

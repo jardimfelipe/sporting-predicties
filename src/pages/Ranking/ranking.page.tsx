@@ -10,6 +10,7 @@ import api from "@config/api"
 
 import { useTranslation } from "react-i18next"
 import { toCamel } from "@utils"
+import { useWindowSize } from "@hooks"
 
 const { Title, Text } = Typography
 type RankingTypes = "internationalRanking" | "localRanking"
@@ -21,12 +22,19 @@ const RadioWrapper = styled.div`
 `
 
 export const Ranking = () => {
+  const { width } = useWindowSize()
   const { ranking, lastUpdate, setRanking } = useAppContext()
   const [isLoading, setIsLoading] = useState(false)
   const [currentRanking, setCurrentRanking] = useState<RankingTypes>(
     "localRanking"
   )
   const { t, i18n } = useTranslation()
+
+  const showTeamCountry = () => {
+    if (!width) return currentRanking === "localRanking"
+    return currentRanking === "localRanking" && width > 767
+  }
+
   const columns: ColumnsType<IRanking> = [
     {
       title: t("table.ranking"),
@@ -52,6 +60,7 @@ export const Ranking = () => {
           {(value > 0 && `+ ${value}`) || (value < 0 && `- ${value}`) || ""}
         </span>
       ),
+      responsive: ["sm"],
     },
     {
       title: t("table.teamName"),
@@ -65,7 +74,7 @@ export const Ranking = () => {
         </span>
       ),
     },
-    ...(currentRanking === "localRanking"
+    ...(showTeamCountry()
       ? [
           {
             title: t("table.teamCountry"),
@@ -79,6 +88,7 @@ export const Ranking = () => {
     {
       title: t("table.teamRating"),
       className: "header-cell",
+      responsive: ["sm"],
       children: [
         {
           title: t("table.attackParameter"),
