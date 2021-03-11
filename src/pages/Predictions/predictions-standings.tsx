@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 
-import { useAppContext, Standing, League } from "../../Context";
-import api from "@config/api";
+import { useAppContext, Standing, League } from "../../Context"
+import api from "@config/api"
 
-import { Typography, Image } from "antd";
-import { Table } from "@components";
-import styled from "styled-components";
-import { FaCheck } from "react-icons/fa";
+import { Typography, Image } from "antd"
+import { Table } from "@components"
+import styled from "styled-components"
+import { FaCheck } from "react-icons/fa"
 
-import { useTranslation } from "react-i18next";
-import { ColumnsType } from "antd/es/table";
+import { useTranslation } from "react-i18next"
+import { ColumnsType } from "antd/es/table"
 
-import { toCamel, parseParam, getProbColor } from "@utils";
-import { LeagueOption, DetaskColumnType, PageProps } from "./types";
+import { toCamel, parseParam, getProbColor } from "@utils"
+import { LeagueOption, DetaskColumnType, PageProps } from "./types"
 
-const { Text } = Typography;
+const { Text } = Typography
 
 // const secondDivisionLeagues = ["brazilSerieB"];
 const europeanLeagues = [
@@ -25,7 +25,7 @@ const europeanLeagues = [
   "netherlandsEredivisie",
   "portugalPortugueseLiga",
   "spainPrimeraDivision",
-];
+]
 const DestakColumn = styled.div<DetaskColumnType>`
   line-height: 0;
   ${({ value }: DetaskColumnType) => {
@@ -36,28 +36,28 @@ const DestakColumn = styled.div<DetaskColumnType>`
       : `
       box-shadow: 0 0 0 50px ${getProbColor(value)};
       background-color: ${getProbColor(value)};
-      `;
+      `
   }};
-`;
+`
 
 export const PredictionsStandings: React.FC<PageProps> = ({
   currentLeague,
   setLeagueOptions,
 }) => {
-  const { predictions, setPredictions } = useAppContext();
-  const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false);
+  const { predictions, setPredictions } = useAppContext()
+  const { t } = useTranslation()
+  const [isLoading, setIsLoading] = useState(false)
 
-  const isEuropeanLeague = () => europeanLeagues.includes(currentLeague);
+  const isEuropeanLeague = () => europeanLeagues.includes(currentLeague)
   // const isSecondDivisionLeague = () => secondDivisionLeagues.includes(currentLeague);
 
   const renderPorcentageValue = (value: number) => {
-    if (value > 0 && value < 0.1) return "< 0.1%";
-    if (value > 99 && value < 100) return "> 99%";
-    if (value === 0) return "-";
-    if (value === 100) return <FaCheck />;
-    return `${value.toFixed(1)}%`;
-  };
+    if (value > 0 && value < 0.1) return "< 0.1%"
+    if (value > 99 && value < 100) return "> 99%"
+    if (value === 0) return "-"
+    if (value === 100) return <FaCheck />
+    return `${value.toFixed(1)}%`
+  }
 
   const columns: ColumnsType<Standing> = [
     {
@@ -81,6 +81,7 @@ export const PredictionsStandings: React.FC<PageProps> = ({
     {
       title: t("table.predictedValues"),
       className: "header-cell",
+      responsive: ["sm"],
       children: [
         {
           title: t("table.predictedGoalsDifference"),
@@ -160,21 +161,35 @@ export const PredictionsStandings: React.FC<PageProps> = ({
         },
       ],
     },
-  ];
+    {
+      title: t("table.champion"),
+      dataIndex: "champion",
+      key: "champion",
+      align: "center",
+      width: 100,
+
+      render: (value) => (
+        <DestakColumn value={value}>
+          {renderPorcentageValue(value * 100)}
+        </DestakColumn>
+      ),
+      responsive: ["xs"],
+    },
+  ]
 
   useEffect(() => {
-    let unmounted = false;
-    (async () => {
-      if (!!predictions.standings) return;
-      if (unmounted) return;
-      setIsLoading(true);
+    let unmounted = false
+    ;(async () => {
+      if (!!predictions.standings) return
+      if (unmounted) return
+      setIsLoading(true)
       const {
         data: { standings: dataStandings },
-      } = await api.get("/standings");
-      const keys = Object.keys(dataStandings);
+      } = await api.get("/standings")
+      const keys = Object.keys(dataStandings)
       const standings: League = keys.reduce(
         (predictsObj: any, curr: string) => {
-          const a = parseParam(curr);
+          const a = parseParam(curr)
           predictsObj[toCamel(a)] = Object.keys(
             dataStandings[curr].team
           ).reduce(
@@ -186,27 +201,27 @@ export const PredictionsStandings: React.FC<PageProps> = ({
                     ...{
                       [toCamel(keys)]: dataStandings[curr][keys][index],
                     },
-                  };
-                  return teamObj;
+                  }
+                  return teamObj
                 },
                 {}
-              );
-              standingArr = [...standingArr, team];
-              return standingArr;
+              )
+              standingArr = [...standingArr, team]
+              return standingArr
             },
             []
-          );
-          return predictsObj;
+          )
+          return predictsObj
         },
         {}
-      );
-      setPredictions({ ...predictions, standings });
-      setIsLoading(false);
-    })();
+      )
+      setPredictions({ ...predictions, standings })
+      setIsLoading(false)
+    })()
     return () => {
-      unmounted = true;
-    };
-  }, [setPredictions, predictions]);
+      unmounted = true
+    }
+  }, [setPredictions, predictions])
 
   useEffect(() => {
     if (!!predictions.standings) {
@@ -215,10 +230,10 @@ export const PredictionsStandings: React.FC<PageProps> = ({
       ).map((key) => ({
         label: t(`input.${key}`),
         value: key,
-      }));
-      if (setLeagueOptions) setLeagueOptions(selectOptions);
+      }))
+      if (setLeagueOptions) setLeagueOptions(selectOptions)
     }
-  }, [predictions.standings, t, setLeagueOptions]);
+  }, [predictions.standings, t, setLeagueOptions])
 
   return (
     <Table
@@ -233,5 +248,5 @@ export const PredictionsStandings: React.FC<PageProps> = ({
           : []
       }
     />
-  );
-};
+  )
+}
