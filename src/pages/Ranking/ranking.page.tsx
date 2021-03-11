@@ -177,6 +177,7 @@ export const Ranking = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              textAlign: "center",
             }}
           >
             <Title style={{ margin: 0 }}>{t("ranking.title")}</Title>

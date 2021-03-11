@@ -50,9 +50,6 @@ export const Predictions = () => {
     setLeagueOptions((leagueOptions) => (leagueOptions = [...selectOptions]))
   }, [])
 
-  console.log(lastUpdate)
-  console.log(i18n.language)
-
   return (
     <>
       <Row>
@@ -62,6 +59,7 @@ export const Predictions = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              textAlign: "center",
             }}
           >
             <Title style={{ margin: 0 }}>{t("predictions.title")}</Title>
