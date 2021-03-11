@@ -1,20 +1,20 @@
-import { Match } from "Context";
-import React, { useState } from "react";
+import { Match } from "Context"
+import React /*useState*/ from "react"
 
-import { Typography, Button } from "antd";
-import { Box } from "@components";
-import { PlusOutlined } from "@ant-design/icons";
-import { MatchModal } from "./match-modal.component";
+import { Typography, Button, Tooltip } from "antd"
+import { Box } from "@components"
+import { InfoCircleOutlined, CloseOutlined } from "@ant-design/icons"
+// import { MatchModal } from "./match-modal.component"
 
-import { getProbColor } from "@utils";
+import { getProbColor, toPercentage } from "@utils"
 
-import styled from "styled-components";
+import styled from "styled-components"
 
-const { Text } = Typography;
+const { Text } = Typography
 
 type MatchInfo = {
-  matches: Match[];
-};
+  matches: Match[]
+}
 
 const PanelContainer: any = styled.div`
   display: flex;
@@ -96,25 +96,39 @@ const PanelContainer: any = styled.div`
       `}
     }
   }
-`;
+`
+
+const TooltipContainer = styled.div`
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    img {
+      width: 32px;
+      height: auto;
+    }
+    span {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+  }
+`
 
 export const MatchPanel: React.FC<MatchInfo> = ({ matches }) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [currentMatch, setCurrentMatch] = useState<Match>(matches[0]);
+  // const [isModalVisible, setIsModalVisible] = useState(false)
+  // const [currentMatch setCurrentMatch] = useState<Match>(matches[0])
 
-  const handleClick = (match: Match) => {
-    setCurrentMatch((currentMatch) => (currentMatch = { ...match }));
-    setIsModalVisible(true);
-  };
+  // const handleClick = (match: Match) => {
+  //   setCurrentMatch((currentMatch) => (currentMatch = { ...match }))
+  //   setIsModalVisible(true)
+  // }
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-
-  const renderValue = (value: number) => {
-    const percent = value * 100;
-    return `${percent.toFixed(1)}%`;
-  };
+  // const handleCancel = () => {
+  //   setIsModalVisible(false)
+  // }
 
   return (
     <Box
@@ -146,18 +160,46 @@ export const MatchPanel: React.FC<MatchInfo> = ({ matches }) => {
                 {/* <span className="team-goals">{match.homeGoals}</span> */}
                 <div className="match__team-prob">
                   <span className="match__team-prob--home">
-                    {renderValue(match.probHome)}
+                    {toPercentage(match.probHome)}
                   </span>
                 </div>
               </div>
-              <Button
-                shape="circle"
-                type="primary"
-                size="small"
-                className="match__button"
-                icon={<PlusOutlined />}
-                onClick={() => handleClick(match)}
-              />
+              <Tooltip
+                title={
+                  <TooltipContainer>
+                    <div className="match__tooltip-team">
+                      <img
+                        className="match__tooltip-img"
+                        alt={match.homeTeam}
+                        src={match.homeImage}
+                      />
+                      <span className="match__tooltip-score">
+                        {match.homeGoals}
+                      </span>
+                    </div>
+                    <CloseOutlined />
+                    <div className="match__tooltip-team">
+                      <span className="match__tooltip-score">
+                        {match.awayGoals}
+                      </span>
+                      <img
+                        className="match__tooltip-img"
+                        alt={match.awayTeam}
+                        src={match.awayImage}
+                      />
+                    </div>
+                  </TooltipContainer>
+                }
+                color="primary"
+              >
+                <Button
+                  shape="circle"
+                  type="primary"
+                  size="small"
+                  className="match__button"
+                  icon={<InfoCircleOutlined />}
+                />
+              </Tooltip>
               <div className="match__team">
                 <span className="match__team-name">
                   <img alt={match.awayTeam} src={match.awayImage} />
@@ -166,22 +208,24 @@ export const MatchPanel: React.FC<MatchInfo> = ({ matches }) => {
                 {/* <span className="match__team-goals">{match.awayGoals}</span> */}
                 <div className="match__team-prob">
                   <span className="match__team-prob--away">
-                    {renderValue(match.probAway)}
+                    {toPercentage(match.probAway)}
                   </span>
                 </div>
               </div>
             </div>
             <div className="match__team-prob--draw">
-              {renderValue(match.probDraw)}
+              {toPercentage(match.probDraw)}
             </div>
           </PanelContainer>
-        );
+        )
       })}
-      <MatchModal
-        match={currentMatch}
-        onCancel={handleCancel}
-        isVisible={isModalVisible}
-      />
+      {/* {currentMatch && (
+        <MatchModal
+          match={currentMatch}
+          onCancel={handleCancel}
+          isVisible={isModalVisible}
+        />
+      )} */}
     </Box>
-  );
-};
+  )
+}

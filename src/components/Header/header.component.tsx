@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react"
+import styled from "styled-components"
+import { useAppContext } from "../../Context"
 
-import { Layout, Image, Select, Menu } from "antd";
+import api from "@config/api"
+
+import { Layout, Image, Select, Menu } from "antd"
 import {
   IdcardOutlined,
   LineChartOutlined,
   BarChartOutlined,
-} from "@ant-design/icons";
+} from "@ant-design/icons"
 
-import { useHistory } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
-const { Header: AntdHeader } = Layout;
-const { Option } = Select;
+const { Header: AntdHeader } = Layout
+const { Option } = Select
 
 const LanguageSelect = styled(Select)`
   &:focus,
@@ -37,7 +40,7 @@ const LanguageSelect = styled(Select)`
     right: 0;
     color: #fff;
   }
-`;
+`
 
 const HeaderMenu = styled(Menu)`
   box-sizing: border-box;
@@ -58,7 +61,7 @@ const HeaderMenu = styled(Menu)`
       border-bottom: 5px solid #1da57a !important;
     }
   }
-`;
+`
 const menuItems = [
   {
     title: "menu.curriculum",
@@ -75,28 +78,41 @@ const menuItems = [
     path: "/rankings",
     icon: <BarChartOutlined />,
   },
-];
+]
 
 export const Header = () => {
-  const history = useHistory();
-  const { t, i18n } = useTranslation();
-  const [currentMenuItem, setCurrentMenuItem] = useState<string>("");
+  const { setLastUpdate } = useAppContext()
+  const history = useHistory()
+  const { t, i18n } = useTranslation()
+  const [currentMenuItem, setCurrentMenuItem] = useState<string>("")
   const handleChange = (value: any) => {
-    i18n.changeLanguage(value);
-  };
+    i18n.changeLanguage(value)
+  }
 
   const handleClick = (newPath: string) => {
-    const defaultMenu = menuItems.findIndex(({ path }) => path === newPath);
-    setCurrentMenuItem(defaultMenu.toString());
-    history.push(newPath);
-  };
+    const defaultMenu = menuItems.findIndex(({ path }) => path === newPath)
+    setCurrentMenuItem(defaultMenu.toString())
+    history.push(newPath)
+  }
 
   useEffect(() => {
     const defaultMenu = menuItems.findIndex(
       ({ path }) => path === history.location.pathname
-    );
-    setCurrentMenuItem(defaultMenu.toString());
-  }, [history.location.pathname]);
+    )
+    setCurrentMenuItem(defaultMenu.toString())
+  }, [history.location.pathname])
+
+  useEffect(() => {
+    ;(async () => {
+      const {
+        data: { information },
+      } = await api.get("/information")
+      setLastUpdate({
+        en: information.en.date_last_update,
+        pt: information.pt.date_last_update,
+      })
+    })()
+  }, [setLastUpdate])
   return (
     <AntdHeader
       style={{
@@ -120,7 +136,7 @@ export const Header = () => {
             >
               {t(menu.title)}
             </Menu.Item>
-          );
+          )
         })}
       </HeaderMenu>
       <LanguageSelect defaultValue={"en"} onChange={handleChange}>
@@ -140,5 +156,5 @@ export const Header = () => {
         </Option>
       </LanguageSelect>
     </AntdHeader>
-  );
-};
+  )
+}

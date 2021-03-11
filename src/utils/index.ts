@@ -1,2 +1,2 @@
-export { toCamel, parseParam } from "./stringHandler";
-export { getProbColor } from "./colors";
+export { toCamel, parseParam, toPercentage } from "./stringHandler"
+export { getProbColor } from "./colors"
