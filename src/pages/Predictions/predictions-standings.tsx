@@ -13,8 +13,18 @@ import { ColumnsType } from "antd/es/table"
 
 import { toCamel, parseParam, getProbColor } from "@utils"
 import { LeagueOption, DetaskColumnType, PageProps } from "./types"
+import { useWindowSize } from "@hooks"
 
 const { Text } = Typography
+
+const breakpoints = {
+  xs: 480,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+  xxl: 1600,
+}
 
 // const secondDivisionLeagues = ["brazilSerieB"];
 const europeanLeagues = [
@@ -47,6 +57,7 @@ export const PredictionsStandings: React.FC<PageProps> = ({
   const { predictions, setPredictions } = useAppContext()
   const { t } = useTranslation()
   const [isLoading, setIsLoading] = useState(false)
+  const { width } = useWindowSize()
 
   const isEuropeanLeague = () => europeanLeagues.includes(currentLeague)
   // const isSecondDivisionLeague = () => secondDivisionLeagues.includes(currentLeague);
@@ -58,6 +69,8 @@ export const PredictionsStandings: React.FC<PageProps> = ({
     if (value === 100) return <FaCheck />
     return `${value.toFixed(1)}%`
   }
+
+  const isLargeWidth = () => width && width > breakpoints.lg
 
   const columns: ColumnsType<Standing> = [
     {
@@ -83,22 +96,30 @@ export const PredictionsStandings: React.FC<PageProps> = ({
       className: "header-cell",
       responsive: ["sm"],
       children: [
-        {
-          title: t("table.predictedGoalsDifference"),
-          dataIndex: "predictedGoalsDifference",
-          key: "predictedGoalsDifference",
-          width: 100,
-          align: "center",
-          render: (value) => value.toFixed(0),
-        },
-        {
-          title: t("table.predictedPoints"),
-          dataIndex: "predictedPoints",
-          key: "predictedPoints",
-          width: 100,
-          align: "center",
-          render: (value) => value.toFixed(0),
-        },
+        ...(isLargeWidth()
+          ? [
+              {
+                title: t("table.predictedGoalsDifference"),
+                dataIndex: "predictedGoalsDifference",
+                key: "predictedGoalsDifference",
+                width: 100,
+                align: "center" as "center",
+                render: (value: number) => value.toFixed(0),
+              },
+            ]
+          : []),
+        ...(isLargeWidth()
+          ? [
+              {
+                title: t("table.predictedPoints"),
+                dataIndex: "predictedPoints",
+                key: "predictedPoints",
+                width: 100,
+                align: "center" as "center",
+                render: (value: number) => value.toFixed(0),
+              },
+            ]
+          : []),
         {
           title: t(
             `table.${
@@ -110,6 +131,7 @@ export const PredictionsStandings: React.FC<PageProps> = ({
           align: "center",
           width: 100,
           render: (value) => renderPorcentageValue(value * 100),
+          responsive: ["lg"],
         },
         {
           title: t(

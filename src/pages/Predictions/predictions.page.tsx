@@ -36,7 +36,7 @@ export const Predictions = () => {
   const [leagueOptions, setLeagueOptions] = useState<any[]>([])
   const [sectionParams, setSectionParams] = useState({
     league: "brazilSerieA",
-    pageMode: "matches",
+    pageMode: "standings",
   })
 
   const handleChange = ({ name, value }: OnChangeEvent) => {
@@ -86,7 +86,7 @@ export const Predictions = () => {
               onChange={(e) =>
                 handleChange({ name: "pageMode", value: e.target.value })
               }
-              defaultValue={"matches"}
+              defaultValue={"standings"}
               size="large"
             >
               <Radio.Button value="standings">{t("input.table")}</Radio.Button>
