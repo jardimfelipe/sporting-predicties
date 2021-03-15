@@ -211,10 +211,10 @@ export const MatchPanel: React.FC<MatchInfo> = ({ matches = [] }) => {
                   />
                 </Tooltip>
                 <div className="match__team">
-                  <span className="match__team-name">
+                  <div className="match__team-name">
                     <img alt={match.awayTeam} src={match.awayImage} />
-                    {match.awayTeam}
-                  </span>
+                    <span>{match.awayTeam}</span>
+                  </div>
                   {/* <span className="match__team-goals">{match.awayGoals}</span> */}
                   <div className="match__team-prob">
                     <span className="match__team-prob--away">
