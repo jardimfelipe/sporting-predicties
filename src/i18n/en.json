@@ -1,7 +1,14 @@
 {
+  "notFound": "Sorry, the page you visited does not exist.",
+  "button": {
+    "backHome": "Back Home",
+    "loadMore": "Load More"
+  },
   "input": {
     "brazilSerieA": "Brazil: Brasileirão Série A",
     "brazilSerieB": "Brazil: Brasileirão Série B",
+    "europeUefaChampionsLeague": "Europe: UEFA Champions League",
+    "europeEuropeanChampionships": "Europe: European Championships",
     "englandPremierLeague": "England: Premier League",
     "franceLigue-1": "France: League 1",
     "germanyBundesliga": "Germany: Bundesliga",
@@ -9,103 +16,107 @@
     "netherlandsEredivisie": "Netherlands: Eredivisie",
     "portugalPortugueseLiga-": "Portugal: Portuguese Liga",
     "spainPrimeraDivision": "Spain: Primera Division",
+    "southAmericaCopaLibertadores": "South America: Copa Libertadores",
+    "worldWorldCup": "World: World Cup",
     "table": "Table",
     "matches": "Matches"
   },
   "menu": {
     "curriculum": "Resume",
     "predictions": "Predictions",
-    "rankings": "Rankings"
+    "rankings": "Rankings",
+    "about": "About"
   },
   "lastUpdate": "Last Update",
-  "summary": "Summary",
-  "summaryText": "Texto sumário",
-  "phone": "Telefone",
-  "email": "Email",
-  "technicalSkill": "Technical Skills",
-  "technicalSkills": [
-    "Python",
-    "R",
-    "SQL",
-    "VBA",
-    "Excel",
-    "PowerPoint",
-    "Java",
-    "HTML",
-    "XML",
-    "JavaScript",
-    "CSS",
-    "Swift"
-  ],
-  "languages": "Languages",
-  "english": "English",
-  "portuguese": "Portuguese",
-  "education": "Education",
-  "educations": [
-    {
-      "course": "Mobile application development and Strategy",
-      "date": "09/2020 - Present",
-      "school": "George Brown College | Toronto, ON, Canadá"
-    },
-    {
-      "course": "Data Analysis and Data Mining",
-      "date": "03/2018 - 10/2019",
-      "school": "Fundação Instituto de Administração | Sao Paulo, SP, Brazil"
-    },
-    {
-      "course": "Accounting",
-      "date": "01/2014 - 10/2017",
-      "school": "Universidade de Sao Paulo | Sao Paulo, SP, Brazil"
-    }
-  ],
-  "certificate": "Certificates",
-  "certificates": [
-    {
-      "course": "Data Scientist at Data Quest",
-      "date": "12/2020",
-      "description": "Programming in Python, Data Analysis and Data Visualization, Command Line, SQL, Probability/Statistics and Machine Learning"
-    },
-    {
-      "course": "University Pathway Program at ILAC",
-      "date": "04/2020",
-      "description": "English proficiency certificate"
-    },
-    {
-      "course": "Analytics at Vanzolini",
-      "date": "04/2019",
-      "description": "Exploratory Data Analysis, MS Access, Excel Dashboards, Introduction to Hadoop and Hive QL"
-    }
-  ],
-  "professionalExperience": "Professinal Experience",
-  "professionalExperiences": [
-    {
-      "job": "Data Analyst",
-      "date": "08/2016 – 01/2020",
-      "company": "Itau Unibanco | Sao Paulo, SP, Brazil",
-      "description": [
-        "Developed a statistical model, to evaluate the company's lawsuits and settle plea deals at the calculated value, which improved and automated a process that was previously manual",
-        "Built new dashboards using Excel and VBA which helped to manage lawsuits indicators",
-        "Developed a model through the Time Series Forecasting method, using Python and SAS, to predict daily transactions and customer flows"
-      ]
-    },
-    {
-      "job": "Intern",
-      "date": "05/2015 – 07/2016",
-      "company": "Itau Unibanco | Sao Paulo, SP, Brazil",
-      "description": [
-        "Built new dashboards using Excel and VBA which helped to manage complaint indicators",
-        "Resolution of customer complaints through the bank's official tool"
-      ]
-    }
-  ],
-  "award": "Awards",
-  "awards": [
-    {
-      "award": "PRAD (High Performance Compensation Program)",
-      "date": "03/2018",
-      "description": "Delivered to 10% of the analysts regarding the performance presented in 2017"
-    }
-  ],
+  "curriculum": {
+    "summary": "Summary",
+    "summaryText": "Texto sumário",
+    "phone": "Telefone",
+    "email": "Email",
+    "technicalSkill": "Technical Skills",
+    "technicalSkills": [
+      "Python",
+      "R",
+      "SQL",
+      "VBA",
+      "Excel",
+      "PowerPoint",
+      "Java",
+      "HTML",
+      "XML",
+      "JavaScript",
+      "CSS",
+      "Swift"
+    ],
+    "languages": "Languages",
+    "languagesList": ["English", "Portuguese"],
+    "education": "Education",
+    "educations": [
+      {
+        "course": "Mobile application development and Strategy",
+        "date": "09/2020 - Present",
+        "school": "George Brown College | Toronto, ON, Canadá"
+      },
+      {
+        "course": "Data Analysis and Data Mining",
+        "date": "03/2018 - 10/2019",
+        "school": "Fundação Instituto de Administração | Sao Paulo, SP, Brazil"
+      },
+      {
+        "course": "Accounting",
+        "date": "01/2014 - 10/2017",
+        "school": "Universidade de Sao Paulo | Sao Paulo, SP, Brazil"
+      }
+    ],
+    "certificate": "Certificates",
+    "certificates": [
+      {
+        "course": "Data Scientist at Data Quest",
+        "date": "12/2020",
+        "description": "Programming in Python, Data Analysis and Data Visualization, Command Line, SQL, Probability/Statistics and Machine Learning"
+      },
+      {
+        "course": "University Pathway Program at ILAC",
+        "date": "04/2020",
+        "description": "English proficiency certificate"
+      },
+      {
+        "course": "Analytics at Vanzolini",
+        "date": "04/2019",
+        "description": "Exploratory Data Analysis, MS Access, Excel Dashboards, Introduction to Hadoop and Hive QL"
+      }
+    ],
+    "professionalExperience": "Professional Experience",
+    "professionalExperiences": [
+      {
+        "job": "Data Analyst",
+        "date": "08/2016 – 01/2020",
+        "company": "Itau Unibanco | Sao Paulo, SP, Brazil",
+        "description": [
+          "Developed a statistical model, to evaluate the company's lawsuits and settle plea deals at the calculated value, which improved and automated a process that was previously manual",
+          "Built new dashboards using Excel and VBA which helped to manage lawsuits indicators",
+          "Developed a model through the Time Series Forecasting method, using Python and SAS, to predict daily transactions and customer flows"
+        ]
+      },
+      {
+        "job": "Intern",
+        "date": "05/2015 – 07/2016",
+        "company": "Itau Unibanco | Sao Paulo, SP, Brazil",
+        "description": [
+          "Built new dashboards using Excel and VBA which helped to manage complaint indicators",
+          "Resolution of customer complaints through the bank's official tool"
+        ]
+      }
+    ],
+    "award": "Awards",
+    "awards": [
+      {
+        "award": "PRAD (High Performance Compensation Program)",
+        "date": "03/2018",
+        "description": "Delivered to 10% of the analysts regarding the performance presented in 2017"
+      }
+    ]
+  },
   "ranking": {
     "title": "Soccer Rankings",
     "subTitle": "Compare teams by Soccer Power Index",
@@ -138,6 +149,11 @@
     "minorPositions": "G6",
     "minorPositionsEuropean": "EL",
     "relegatePositions": "Relegated",
-    "champion": "Champion"
+    "champion": "Champion",
+    "makeRoundOf_16": "Roud Of 16",
+    "makeQuarters": "Quarters",
+    "makeSemis": "Semis",
+    "makeFinal": "Final",
+    "winFinal": "Champion"
   }
 }

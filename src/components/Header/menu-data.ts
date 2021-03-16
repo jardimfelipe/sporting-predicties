@@ -2,6 +2,7 @@ import {
   IdcardOutlined,
   LineChartOutlined,
   BarChartOutlined,
+  SolutionOutlined,
 } from "@ant-design/icons"
 
 const menuItems = [
@@ -19,6 +20,11 @@ const menuItems = [
     title: "menu.rankings",
     path: "/rankings",
     icon: BarChartOutlined,
+  },
+  {
+    title: "menu.about",
+    path: "/about",
+    icon: SolutionOutlined,
   },
 ]
 

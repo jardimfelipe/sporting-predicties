@@ -12,6 +12,8 @@ import { useTranslation } from "react-i18next"
 import { toCamel } from "@utils"
 import { useWindowSize } from "@hooks"
 
+import { SortOrder } from "antd/lib/table/interface"
+
 const { Title, Text } = Typography
 type RankingTypes = "internationalRanking" | "localRanking"
 
@@ -52,6 +54,8 @@ export const Ranking = () => {
       align: "center",
       width: 30,
       className: "single-column",
+      sorter: (a: IRanking, b: IRanking) => a.ranking - b.ranking,
+      sortDirections: ["descend", "ascend"] as SortOrder[],
     },
     {
       title: t("table.positionChange"),
@@ -105,6 +109,9 @@ export const Ranking = () => {
           key: "attackParameter",
           align: "center",
           width: 30,
+          sorter: (a: IRanking, b: IRanking) =>
+            a.attackParameter - b.attackParameter,
+          sortDirections: ["descend", "ascend"] as SortOrder[],
           render: (value) => (
             <div
               style={{ backgroundColor: getColor(value) }}
@@ -120,6 +127,9 @@ export const Ranking = () => {
           key: "defenseParameter",
           align: "center",
           width: 30,
+          sorter: (a: IRanking, b: IRanking) =>
+            a.defenseParameter - b.defenseParameter,
+          sortDirections: ["descend", "ascend"] as SortOrder[],
           render: (value) => (
             <div
               style={{ backgroundColor: getColor(value) }}

@@ -4,7 +4,7 @@ import styled from "styled-components"
 
 import { AppContext } from "./Context"
 
-import { Home, Ranking, Predictions } from "@pages"
+import { Home, Ranking, Predictions, About, NotFound } from "@pages"
 import { Header, Footer, Container } from "@components"
 import { Layout } from "antd"
 
@@ -27,13 +27,15 @@ function App() {
       <BrowserRouter>
         <Header />
         <Content>
-          <Switch>
-            <Container>
+          <Container>
+            <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/predictions" component={Predictions} />
               <Route exact path="/rankings" component={Ranking} />
-            </Container>
-          </Switch>
+              <Route exact path="/about" component={About} />
+              <Route path="" component={NotFound} />
+            </Switch>
+          </Container>
         </Content>
         <Footer />
       </BrowserRouter>

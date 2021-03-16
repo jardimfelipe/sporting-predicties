@@ -1,5 +1,6 @@
 import { Match } from "Context"
 import React, { useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 
 import { Typography, Button, Tooltip } from "antd"
 import { Box } from "@components"
@@ -100,8 +101,10 @@ const PanelContainer: any = styled.div`
 
 const TooltipContainer = styled.div`
   display: flex;
-  gap: 15px;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
   div {
     display: flex;
     align-items: center;
@@ -114,11 +117,16 @@ const TooltipContainer = styled.div`
       font-size: 1.5em;
       font-weight: bold;
     }
+    &:nth-last-child(1) {
+      font-size: 1em;
+      page-break-after: always;
+    }
   }
 `
 
 export const MatchPanel: React.FC<MatchInfo> = ({ matches = [] }) => {
   const MAX_PER_PAGE = 8
+  const { t } = useTranslation()
   const [currentPage, setCurrentPage] = useState(1)
   const [pageMatches, setPageMatches] = useState<Match[]>([])
 
@@ -165,26 +173,31 @@ export const MatchPanel: React.FC<MatchInfo> = ({ matches = [] }) => {
                 <Tooltip
                   title={
                     <TooltipContainer>
-                      <div className="match__tooltip-team">
-                        <img
-                          className="match__tooltip-img"
-                          alt={match.homeTeam}
-                          src={match.homeImage}
-                        />
-                        <span className="match__tooltip-score">
-                          {match.homeGoals}
-                        </span>
+                      <div className="match__tooltip-match-result">
+                        <div className="match__tooltip-team">
+                          <img
+                            className="match__tooltip-img"
+                            alt={match.homeTeam}
+                            src={match.homeImage}
+                          />
+                          <span className="match__tooltip-score">
+                            {match.homeGoals}
+                          </span>
+                        </div>
+                        <CloseOutlined />
+                        <div className="match__tooltip-team">
+                          <span className="match__tooltip-score">
+                            {match.awayGoals}
+                          </span>
+                          <img
+                            className="match__tooltip-img"
+                            alt={match.awayTeam}
+                            src={match.awayImage}
+                          />
+                        </div>
                       </div>
-                      <CloseOutlined />
-                      <div className="match__tooltip-team">
-                        <span className="match__tooltip-score">
-                          {match.awayGoals}
-                        </span>
-                        <img
-                          className="match__tooltip-img"
-                          alt={match.awayTeam}
-                          src={match.awayImage}
-                        />
+                      <div className="match__tooltip-prob-result">
+                        <span>{toPercentage(match.probResult)}</span>
                       </div>
                     </TooltipContainer>
                   }
@@ -203,7 +216,6 @@ export const MatchPanel: React.FC<MatchInfo> = ({ matches = [] }) => {
                     <img alt={match.awayTeam} src={match.awayImage} />
                     <span>{match.awayTeam}</span>
                   </div>
-                  {/* <span className="match__team-goals">{match.awayGoals}</span> */}
                   <div className="match__team-prob">
                     <span className="match__team-prob--away">
                       {toPercentage(match.probAway)}
@@ -229,7 +241,7 @@ export const MatchPanel: React.FC<MatchInfo> = ({ matches = [] }) => {
           <Button
             onClick={() => setCurrentPage((currentPage) => (currentPage += 1))}
           >
-            Carregar Mais
+            {t("button.loadMore")}
           </Button>
         )}
       </Box>

@@ -49,7 +49,6 @@ export const Predictions = () => {
   const handleOptionsChange = useCallback((selectOptions) => {
     setLeagueOptions((leagueOptions) => (leagueOptions = [...selectOptions]))
   }, [])
-
   return (
     <>
       <Row>
