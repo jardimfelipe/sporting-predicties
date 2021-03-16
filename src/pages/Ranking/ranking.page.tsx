@@ -21,6 +21,15 @@ const RadioWrapper = styled.div`
   justify-content: flex-start;
 `
 
+const breakpoints = {
+  xs: 480,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+  xxl: 1600,
+}
+
 export const Ranking = () => {
   const { width } = useWindowSize()
   const { ranking, lastUpdate, setRanking } = useAppContext()
@@ -32,7 +41,7 @@ export const Ranking = () => {
 
   const showTeamCountry = () => {
     if (!width) return currentRanking === "localRanking"
-    return currentRanking === "localRanking" && width > 767
+    return currentRanking === "localRanking" && width > breakpoints.lg
   }
 
   const columns: ColumnsType<IRanking> = [
