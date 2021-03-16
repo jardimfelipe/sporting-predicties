@@ -127,18 +127,6 @@ export const MatchPanel: React.FC<MatchInfo> = ({ matches = [] }) => {
     setPageMatches(() => matches.filter((_, index) => index < maxMatches))
   }, [matches, currentPage])
 
-  // const [isModalVisible, setIsModalVisible] = useState(false)
-  // const [currentMatch setCurrentMatch] = useState<Match>(matches[0])
-
-  // const handleClick = (match: Match) => {
-  //   setCurrentMatch((currentMatch) => (currentMatch = { ...match }))
-  //   setIsModalVisible(true)
-  // }
-
-  // const handleCancel = () => {
-  //   setIsModalVisible(false)
-  // }
-
   return (
     <>
       <Box
@@ -229,13 +217,6 @@ export const MatchPanel: React.FC<MatchInfo> = ({ matches = [] }) => {
             </PanelContainer>
           )
         })}
-        {/* {currentMatch && (
-        <MatchModal
-          match={currentMatch}
-          onCancel={handleCancel}
-          isVisible={isModalVisible}
-        />
-      )} */}
       </Box>
       <Box
         params={{

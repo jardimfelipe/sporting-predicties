@@ -5,17 +5,24 @@ import { useAppContext } from "../../Context"
 import api from "@config/api"
 
 import { Layout, Image, Select, Menu } from "antd"
-import {
-  IdcardOutlined,
-  LineChartOutlined,
-  BarChartOutlined,
-} from "@ant-design/icons"
+import MobileMenu from "./mobile-menu.component"
+import menuItems from "./menu-data"
 
 import { useHistory } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import { useWindowSize } from "@hooks"
 
 const { Header: AntdHeader } = Layout
 const { Option } = Select
+
+const breakpoints = {
+  xs: 480,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+  xxl: 1600,
+}
 
 const LanguageSelect = styled(Select)`
   &:focus,
@@ -62,29 +69,14 @@ const HeaderMenu = styled(Menu)`
     }
   }
 `
-const menuItems = [
-  {
-    title: "menu.curriculum",
-    path: "/",
-    icon: <IdcardOutlined />,
-  },
-  {
-    title: "menu.predictions",
-    path: "/predictions",
-    icon: <LineChartOutlined />,
-  },
-  {
-    title: "menu.rankings",
-    path: "/rankings",
-    icon: <BarChartOutlined />,
-  },
-]
 
 export const Header = () => {
   const { setLastUpdate } = useAppContext()
   const history = useHistory()
   const { t, i18n } = useTranslation()
   const [currentMenuItem, setCurrentMenuItem] = useState<string>("")
+  const { width } = useWindowSize()
+
   const handleChange = (value: any) => {
     i18n.changeLanguage(value)
   }
@@ -122,23 +114,27 @@ export const Header = () => {
         borderBottom: "5px solid",
       }}
     >
-      <HeaderMenu
-        selectedKeys={[currentMenuItem]}
-        theme="dark"
-        mode="horizontal"
-      >
-        {menuItems.map((menu, index) => {
-          return (
-            <Menu.Item
-              onClick={() => handleClick(menu.path)}
-              key={index}
-              icon={menu.icon}
-            >
-              {t(menu.title)}
-            </Menu.Item>
-          )
-        })}
-      </HeaderMenu>
+      {width && width >= breakpoints.lg ? (
+        <HeaderMenu
+          selectedKeys={[currentMenuItem]}
+          theme="dark"
+          mode="horizontal"
+        >
+          {menuItems.map((menu, index) => {
+            return (
+              <Menu.Item
+                onClick={() => handleClick(menu.path)}
+                key={index}
+                icon={<menu.icon />}
+              >
+                {t(menu.title)}
+              </Menu.Item>
+            )
+          })}
+        </HeaderMenu>
+      ) : (
+        <MobileMenu />
+      )}
       <LanguageSelect defaultValue={"en"} onChange={handleChange}>
         <Option value="pt">
           <Image
