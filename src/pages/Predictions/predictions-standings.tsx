@@ -426,7 +426,6 @@ export const PredictionsStandings: React.FC<PageProps> = ({
       unmounted = true
     }
   }, [setPredictions, predictions])
-  console.log(predictions)
 
   useEffect(() => {
     if (!!predictions.standings) {

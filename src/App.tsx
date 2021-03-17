@@ -47,7 +47,7 @@ export default App
 
 const Content = styled(AntdContent)`
   padding: 50px;
-  min-height: calc(100vh - 184px);
+  min-height: calc(100vh - 120px);
   @media screen and (max-width: 767px) {
     padding: 10px;
   }
