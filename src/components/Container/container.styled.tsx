@@ -4,6 +4,7 @@ export const Container = styled.div`
   background: #ffffff;
   width: 100%;
   padding: 50px 40px;
+  margin-top: 64px;
   margin-right: auto;
   margin-left: auto;
   border-radius: 10px;

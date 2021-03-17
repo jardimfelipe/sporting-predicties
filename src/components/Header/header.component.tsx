@@ -112,6 +112,9 @@ export const Header = () => {
         justifyContent: "flex-end",
         alignItems: "center",
         borderBottom: "5px solid",
+        position: "fixed",
+        width: "100%",
+        zIndex: 1000,
       }}
     >
       {width && width >= breakpoints.lg ? (

@@ -16,7 +16,7 @@ const MenuContainer = styled.div`
     &__button {
       position: fixed;
       top: 30px;
-      left: 20px;
+      left: 50px;
       width: 26px;
       height: 26px;
       cursor: pointer;
@@ -108,7 +108,6 @@ const MobileMenu: React.FC = () => {
     isActive,
   ])
   useOnClickOutside(containerRef, clickHandler)
-  console.log(isActive)
   return (
     <MenuContainer ref={containerRef} isActive={isActive}>
       <div
@@ -122,7 +121,11 @@ const MobileMenu: React.FC = () => {
         {menuItems.map((item, index) => {
           return (
             <li key={`link-${index}`}>
-              <Link className="menu__item" to={{ pathname: item.path }}>
+              <Link
+                onClick={() => setIsActive(false)}
+                className="menu__item"
+                to={{ pathname: item.path }}
+              >
                 <item.icon />
                 {t(item.title)}
               </Link>
