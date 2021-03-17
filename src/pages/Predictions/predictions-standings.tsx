@@ -15,6 +15,9 @@ import { toCamel, parseParam, getProbColor } from "@utils"
 import { LeagueOption, DetaskColumnType, PageProps } from "./types"
 import { useWindowSize } from "@hooks"
 
+import { SortOrder } from "antd/lib/table/interface"
+import { Breakpoint } from "antd/lib/_util/responsiveObserve"
+
 const { Text } = Typography
 
 const breakpoints = {
@@ -36,6 +39,14 @@ const europeanLeagues = [
   "portugalPortugueseLiga",
   "spainPrimeraDivision",
 ]
+
+const cups = [
+  "europeEuropeanChampionships",
+  "europeUefaChampionsLeague",
+  "southAmericaCopaLibertadores",
+  "worldWorldCup",
+]
+
 const DestakColumn = styled.div<DetaskColumnType>`
   line-height: 0;
   ${({ value }: DetaskColumnType) => {
@@ -60,6 +71,7 @@ export const PredictionsStandings: React.FC<PageProps> = ({
   const { width } = useWindowSize()
 
   const isEuropeanLeague = () => europeanLeagues.includes(currentLeague)
+  const isCup = () => cups.includes(currentLeague)
   // const isSecondDivisionLeague = () => secondDivisionLeagues.includes(currentLeague);
 
   const renderPorcentageValue = (value: number) => {
@@ -91,112 +103,282 @@ export const PredictionsStandings: React.FC<PageProps> = ({
         </>
       ),
     },
-    {
-      title: t("table.predictedValues"),
-      className: "header-cell",
-      responsive: ["sm"],
-      children: [
-        ...(isLargeWidth()
-          ? [
+    ...(isCup()
+      ? [
+          {
+            title: t("table.predictedValues"),
+            className: "header-cell",
+            responsive: ["sm"] as Breakpoint[],
+            children: [
+              ...(isLargeWidth()
+                ? [
+                    {
+                      title: t("table.makeRoundOf_16"),
+                      dataIndex: "makeRoundOf_16",
+                      key: "makeRoundOf_16",
+                      width: 130,
+                      align: "center" as "center",
+                      render: (value: number) => (
+                        <DestakColumn value={value}>
+                          {renderPorcentageValue(value * 100)}
+                        </DestakColumn>
+                      ),
+                      sorter: (a: Standing, b: Standing) => {
+                        if (!a.makeRoundOf_16 || !b.makeRoundOf_16) return 0
+                        return a.makeRoundOf_16 - b.makeRoundOf_16
+                      },
+                      sortDirections: ["descend", "ascend"] as SortOrder[],
+                    },
+                    {
+                      title: t("table.makeQuarters"),
+                      dataIndex: "makeQuarters",
+                      key: "makeQuarters",
+                      width: 100,
+                      align: "center" as "center",
+                      render: (value: number) => (
+                        <DestakColumn value={value}>
+                          {renderPorcentageValue(value * 100)}
+                        </DestakColumn>
+                      ),
+                      sorter: (a: Standing, b: Standing) => {
+                        if (!a.makeQuarters || !b.makeQuarters) return 0
+                        return a.makeQuarters - b.makeQuarters
+                      },
+                      sortDirections: ["descend", "ascend"] as SortOrder[],
+                    },
+                  ]
+                : []),
               {
-                title: t("table.predictedGoalsDifference"),
-                dataIndex: "predictedGoalsDifference",
-                key: "predictedGoalsDifference",
+                title: t("table.makeSemis"),
+                dataIndex: "makeSemis",
+                key: "makeSemis",
                 width: 100,
                 align: "center" as "center",
-                render: (value: number) => value.toFixed(0),
+                render: (value: number) => (
+                  <DestakColumn value={value}>
+                    {renderPorcentageValue(value * 100)}
+                  </DestakColumn>
+                ),
+                sorter: (a: Standing, b: Standing) => {
+                  if (!a.makeSemis || !b.makeSemis) return 0
+                  return a.makeSemis - b.makeSemis
+                },
+                sortDirections: ["descend", "ascend"] as SortOrder[],
+                responsive: ["lg"] as Breakpoint[],
               },
-            ]
-          : []),
-        ...(isLargeWidth()
-          ? [
               {
-                title: t("table.predictedPoints"),
-                dataIndex: "predictedPoints",
-                key: "predictedPoints",
+                title: t("table.makeFinal"),
+                dataIndex: "makeFinal",
+                key: "makeFinal",
                 width: 100,
                 align: "center" as "center",
-                render: (value: number) => value.toFixed(0),
+                render: (value: number) => (
+                  <DestakColumn value={value}>
+                    {renderPorcentageValue(value * 100)}
+                  </DestakColumn>
+                ),
+                sorter: (a: Standing, b: Standing) => {
+                  if (!a.makeFinal || !b.makeFinal) return 0
+                  return a.makeFinal - b.makeFinal
+                },
+                sortDirections: ["descend", "ascend"] as SortOrder[],
+                responsive: ["lg"] as Breakpoint[],
               },
-            ]
-          : []),
-        {
-          title: t(
-            `table.${
-              isEuropeanLeague() ? "mainPositionsEuropean" : "mainPositions"
-            }`
-          ),
-          dataIndex: "mainPositions",
-          key: "mainPositions",
-          align: "center",
-          width: 100,
-          render: (value) => renderPorcentageValue(value * 100),
-          responsive: ["lg"],
-        },
-        {
-          title: t(
-            `table.${
-              isEuropeanLeague() ? "minorPositionsEuropean" : "minorPositions"
-            }`
-          ),
-          dataIndex: "minorPositions",
-          key: "minorPositions",
-          width: 100,
-          align: "center",
-          render: (value) => renderPorcentageValue(value * 100),
-        },
-        {
-          title: t("table.relegatePositions"),
-          dataIndex: "relegatePositions",
-          key: "relegatePositions",
-          width: 100,
-          align: "center",
-          render: (value) => (
-            <DestakColumn value={value}>
-              {renderPorcentageValue(value * 100)}
-            </DestakColumn>
-          ),
-        },
-        // ...(isSecondDivisionLeague()
-        //   ? [
-        //       {
-        //         title: t("table.promoted"),
-        //         dataIndex: "teamCountry",
-        //         key: "teamCountry",
-        //         className: "single-column vertical-border",
-        //         render: (value: string) => value.toUpperCase(),
-        //       },
-        //     ]
-        //   : []),
-        {
-          title: t("table.champion"),
-          dataIndex: "champion",
-          key: "champion",
-          align: "center",
-          width: 100,
-
-          render: (value) => (
-            <DestakColumn value={value}>
-              {renderPorcentageValue(value * 100)}
-            </DestakColumn>
-          ),
-        },
-      ],
-    },
-    {
-      title: t("table.champion"),
-      dataIndex: "champion",
-      key: "champion",
-      align: "center",
-      width: 100,
-
-      render: (value) => (
-        <DestakColumn value={value}>
-          {renderPorcentageValue(value * 100)}
-        </DestakColumn>
-      ),
-      responsive: ["xs"],
-    },
+              {
+                title: t("table.winFinal"),
+                dataIndex: "winFinal",
+                key: "winFinal",
+                width: 100,
+                align: "center" as "center",
+                render: (value: number) => (
+                  <DestakColumn value={value}>
+                    {renderPorcentageValue(value * 100)}
+                  </DestakColumn>
+                ),
+                sorter: (a: Standing, b: Standing) => {
+                  if (!a.winFinal || !b.winFinal) return 0
+                  return a.winFinal - b.winFinal
+                },
+                sortDirections: ["descend", "ascend"] as SortOrder[],
+                responsive: ["lg"] as Breakpoint[],
+              },
+            ],
+          },
+          {
+            title: t("table.winFinal"),
+            dataIndex: "winFinal",
+            key: "winFinal",
+            align: "center" as "center",
+            width: 100,
+            sorter: (a: Standing, b: Standing) => {
+              if (!a.winFinal || !b.winFinal) return 0
+              return a.winFinal - b.winFinal
+            },
+            sortDirections: ["descend", "ascend"] as SortOrder[],
+            render: (value: number) => (
+              <DestakColumn value={value}>
+                {renderPorcentageValue(value * 100)}
+              </DestakColumn>
+            ),
+            responsive: ["xs"] as Breakpoint[],
+          },
+        ]
+      : [
+          {
+            title: t("table.predictedValues"),
+            className: "header-cell",
+            responsive: ["sm"] as Breakpoint[],
+            children: [
+              ...(isLargeWidth()
+                ? [
+                    {
+                      title: t("table.predictedGoalsDifference"),
+                      dataIndex: "predictedGoalsDifference",
+                      key: "predictedGoalsDifference",
+                      width: 100,
+                      align: "center" as "center",
+                      render: (value: number) => value.toFixed(0),
+                      sorter: (a: Standing, b: Standing) => {
+                        if (
+                          !a.predictedGoalsDifference ||
+                          !b.predictedGoalsDifference
+                        )
+                          return 0
+                        return (
+                          a.predictedGoalsDifference -
+                          b.predictedGoalsDifference
+                        )
+                      },
+                      sortDirections: ["descend", "ascend"] as SortOrder[],
+                    },
+                    {
+                      title: t("table.predictedPoints"),
+                      dataIndex: "predictedPoints",
+                      key: "predictedPoints",
+                      width: 100,
+                      align: "center" as "center",
+                      render: (value: number) => value.toFixed(0),
+                      sorter: (a: Standing, b: Standing) => {
+                        if (!a.predictedPoints || !b.predictedPoints) return 0
+                        return a.predictedPoints - b.predictedPoints
+                      },
+                      sortDirections: ["descend", "ascend"] as SortOrder[],
+                    },
+                  ]
+                : []),
+              {
+                title: t(
+                  `table.${
+                    isEuropeanLeague()
+                      ? "mainPositionsEuropean"
+                      : "mainPositions"
+                  }`
+                ),
+                dataIndex: "mainPositions",
+                key: "mainPositions",
+                align: "center" as "center",
+                width: 100,
+                render: (value: number) => (
+                  <DestakColumn value={value}>
+                    {renderPorcentageValue(value * 100)}
+                  </DestakColumn>
+                ),
+                sorter: (a: Standing, b: Standing) => {
+                  if (!a.mainPositions || !b.mainPositions) return 0
+                  return a.mainPositions - b.mainPositions
+                },
+                sortDirections: ["descend", "ascend"] as SortOrder[],
+                responsive: ["lg"] as Breakpoint[],
+              },
+              {
+                title: t(
+                  `table.${
+                    isEuropeanLeague()
+                      ? "minorPositionsEuropean"
+                      : "minorPositions"
+                  }`
+                ),
+                dataIndex: "minorPositions",
+                key: "minorPositions",
+                width: 100,
+                align: "center" as "center",
+                render: (value: number) => (
+                  <DestakColumn value={value}>
+                    {renderPorcentageValue(value * 100)}
+                  </DestakColumn>
+                ),
+                sorter: (a: Standing, b: Standing) => {
+                  if (!a.minorPositions || !b.minorPositions) return 0
+                  return a.minorPositions - b.minorPositions
+                },
+                sortDirections: ["descend", "ascend"] as SortOrder[],
+              },
+              {
+                title: t("table.relegatePositions"),
+                dataIndex: "relegatePositions",
+                key: "relegatePositions",
+                width: 100,
+                align: "center" as "center",
+                render: (value: number) => (
+                  <DestakColumn value={value}>
+                    {renderPorcentageValue(value * 100)}
+                  </DestakColumn>
+                ),
+                sorter: (a: Standing, b: Standing) => {
+                  if (!a.relegatePositions || !b.relegatePositions) return 0
+                  return a.relegatePositions - b.relegatePositions
+                },
+                sortDirections: ["descend", "ascend"] as SortOrder[],
+              },
+              // ...(isSecondDivisionLeague()
+              //   ? [
+              //       {
+              //         title: t("table.promoted"),
+              //         dataIndex: "teamCountry",
+              //         key: "teamCountry",
+              //         className: "single-column vertical-border",
+              //         render: (value: string) => value.toUpperCase(),
+              //       },
+              //     ]
+              //   : []),
+              {
+                title: t("table.champion"),
+                dataIndex: "champion",
+                key: "champion",
+                align: "center" as "center",
+                width: 100,
+                sorter: (a: Standing, b: Standing) => {
+                  if (!a.champion || !b.champion) return 0
+                  return a.champion - b.champion
+                },
+                sortDirections: ["descend", "ascend"] as SortOrder[],
+                render: (value: number) => (
+                  <DestakColumn value={value}>
+                    {renderPorcentageValue(value * 100)}
+                  </DestakColumn>
+                ),
+              },
+            ],
+          },
+          {
+            title: t("table.champion"),
+            dataIndex: "champion",
+            key: "champion",
+            align: "center" as "center",
+            width: 100,
+            sorter: (a: Standing, b: Standing) => {
+              if (!a.champion || !b.champion) return 0
+              return a.champion - b.champion
+            },
+            sortDirections: ["descend", "ascend"] as SortOrder[],
+            render: (value: number) => (
+              <DestakColumn value={value}>
+                {renderPorcentageValue(value * 100)}
+              </DestakColumn>
+            ),
+            responsive: ["xs"] as Breakpoint[],
+          },
+        ]),
   ]
 
   useEffect(() => {
@@ -206,8 +388,8 @@ export const PredictionsStandings: React.FC<PageProps> = ({
       if (unmounted) return
       setIsLoading(true)
       const {
-        data: { standings: dataStandings },
-      } = await api.get("/standings")
+        data: { competitions: dataStandings },
+      } = await api.get("/competitions")
       const keys = Object.keys(dataStandings)
       const standings: League = keys.reduce(
         (predictsObj: any, curr: string) => {
