@@ -8,7 +8,9 @@
     "axios": "^0.21.1",
     "craco-alias": "^2.1.1",
     "craco-less": "^1.17.1",
+    "express": "^4.17.1",
     "i18next": "^19.8.7",
+    "path": "^0.12.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-i18next": "^11.8.6",
@@ -20,7 +22,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "node server",
+    "postinstall": "yarn run build",
+    "dev": "craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject"
@@ -44,7 +48,6 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.7",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -54,6 +57,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-i18next": "^8.1.0",
+    "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.7",
     "react-app-rewired": "^2.1.8"
   }
